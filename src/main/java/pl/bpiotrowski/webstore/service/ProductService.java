@@ -2,7 +2,7 @@ package pl.bpiotrowski.webstore.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.bpiotrowski.webstore.ProductRepository;
+import pl.bpiotrowski.webstore.repository.ProductRepository;
 import pl.bpiotrowski.webstore.dto.ProductDto;
 import pl.bpiotrowski.webstore.entity.Product;
 
