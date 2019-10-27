@@ -12,6 +12,8 @@ import javax.validation.constraints.Size;
 @Data
 public class ProductDto {
 
+    private Long id;
+
     @NotNull
     @Size(min = 3, max = 255)
     private String title;
@@ -23,14 +25,14 @@ public class ProductDto {
     @Size(max = 255)
     private String thumbnail;
 
-    @NotNull
-    private Category category;
+//    @NotNull
+//    private Category category;
 
     @Positive
     private Double price;
     //    private Type type;
 
-    @NotNull
-    private User author;
+//    @NotNull
+//    private User author;
 
 }
