@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fragments</title>
+</head>
+<body>
+    <div th:fragment="header">
+        <div class="ui grid">
+            <div class="computer tablet only row">
+                <div class="ui inverted fixed menu navbar page grid">
+                    <a class="item" href="/">
+                        <h4>WEB STORE</h4>
+                    </a>
+                    <a class="item" href="/product" th:text="#{webstore.products}"></a>
+                    <a class="item" href="/login" th:text="#{webstore.user.login}"></a>
+                    <div class="right item">
+                        <div class="ui input"><input type="text" placeholder="Search..."></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:fragment="footer">
+        <div class="ui inverted vertical footer segment">
+            <div class="ui container">
+                Travel Match 2015. All Rights Reserved
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+                crossorigin="anonymous"></script>
+    </div>
+</body>
+</html>

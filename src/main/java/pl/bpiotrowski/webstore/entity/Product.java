@@ -17,17 +17,17 @@ public class Product {
     private String description;
     private String thumbnail;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "category_id")
-    private Category category;
+//    @ManyToOne(optional = false)
+//    @JoinColumn(name = "category_id")
+//    private Category category;
 
     private Double price;
 
 //    Enumerated
 //    private Type type;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne(optional = false)
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
 }
