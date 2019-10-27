@@ -6,31 +6,31 @@
 </head>
 <body>
     <div th:fragment="header">
-        <header id="header">
-            <div id="menu">
-                <h3 class="masthead-brand"><a href="/">WEB STORE</a></h3>
-                <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link active" href="/">Main page</a>
-                </nav>
+        <div class="ui grid">
+            <div class="computer tablet only row">
+                <div class="ui inverted fixed menu navbar page grid">
+                    <a class="item" href="/">
+                        <h4>WEB STORE</h4>
+                    </a>
+                    <a class="item" href="/product" th:text="#{webstore.products}"></a>
+                    <a class="item" href="/login" th:text="#{webstore.user.login}"></a>
+                    <div class="right item">
+                        <div class="ui input"><input type="text" placeholder="Search..."></div>
+                    </div>
+                </div>
             </div>
-        </header>
+        </div>
     </div>
 
     <div th:fragment="footer">
-        <footer class="mastfoot mt-auto">
-            <div id="footer">
-                Błażej Piotrowski
+        <div class="ui inverted vertical footer segment">
+            <div class="ui container">
+                Travel Match 2015. All Rights Reserved
             </div>
-        </footer>
+        </div>
 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-                crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-                crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
                 crossorigin="anonymous"></script>
     </div>
 </body>
