@@ -13,15 +13,17 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String username;
+
+    @Column(nullable = false)
     private String password;
 
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "role_id")
-    private Role[] role;
+//    @ManyToOne(optional = false)
+//    @JoinColumn(name = "role_id")
+//    private Role[] role;
 
 }
