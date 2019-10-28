@@ -8,6 +8,8 @@ import javax.validation.constraints.Size;
 @Data
 public class CategoryDto {
 
+    private Long id;
+
     @NotNull
     @Size(min = 2, max = 255)
     private String name;

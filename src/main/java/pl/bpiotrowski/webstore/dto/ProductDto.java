@@ -25,8 +25,8 @@ public class ProductDto {
     @Size(max = 255)
     private String thumbnail;
 
-//    @NotNull
-//    private Category category;
+    @NotNull
+    private Category category;
 
     @Positive
     private Double price;

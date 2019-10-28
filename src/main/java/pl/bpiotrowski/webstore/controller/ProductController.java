@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.bpiotrowski.webstore.dto.ProductDto;
+import pl.bpiotrowski.webstore.service.CategoryService;
 import pl.bpiotrowski.webstore.service.ProductService;
 
 import javax.validation.Valid;
@@ -18,10 +19,12 @@ import javax.validation.Valid;
 public class ProductController {
 
     private final ProductService productService;
+    private final CategoryService categoryService;
 
     @GetMapping
     public String addProduct(Model model) {
         model.addAttribute("productForm", new ProductDto());
+        model.addAttribute("categoryList", categoryService.findAll());
         return "product";
     }
 

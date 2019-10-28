@@ -14,14 +14,26 @@ import java.util.List;
 public class ProductsService {
 
     private final ProductRepository productRepository;
-    private final ProductMapService productMapService;
 
     public List<ProductDto> findAll() {
         List<Product> products = productRepository.findAll();
         List<ProductDto> dto = new ArrayList<>();
         for (Product entity : products) {
-            dto.add(productMapService.mapEntityToDto(entity));
+            dto.add(mapEntityToDto(entity));
         }
+        return dto;
+    }
+
+    private ProductDto mapEntityToDto(Product product) {
+        ProductDto dto = new ProductDto();
+
+        dto.setId(product.getId());
+        dto.setTitle(product.getTitle());
+        dto.setDescription(product.getDescription());
+        dto.setThumbnail(product.getThumbnail());
+        dto.setCategory(product.getCategory());
+        dto.setPrice(product.getPrice());
+
         return dto;
     }
 

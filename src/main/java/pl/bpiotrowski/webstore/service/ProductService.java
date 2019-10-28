@@ -11,10 +11,21 @@ import pl.bpiotrowski.webstore.repository.ProductRepository;
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final ProductMapService productMapService;
 
     public void create(ProductDto dto) {
-        Product entity = productMapService.mapDtoToEntity(dto);
+        Product entity = mapDtoToEntity(dto);
         productRepository.save(entity);
+    }
+
+    private Product mapDtoToEntity(ProductDto dto) {
+        Product entity = new Product();
+
+        entity.setTitle(dto.getTitle());
+        entity.setDescription(dto.getDescription());
+        entity.setThumbnail(dto.getThumbnail());
+        entity.setCategory(dto.getCategory());
+        entity.setPrice(dto.getPrice());
+
+        return entity;
     }
 }

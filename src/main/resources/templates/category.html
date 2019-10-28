@@ -14,7 +14,7 @@
             <form class="ui form" th:action="@{category}" method="post" th:object="${categoryForm}">
                 <div class="field">
                     <label for="name" th:text="#{webstore.product.name}"></label>
-                    <textarea style="resize:none" rows="1" name="name" id="name"></textarea>
+                    <input type="text" name="name" id="name">
                 </div>
                 <button class="ui blue submit button" th:text="#{webstore.product.add}"></button>
             </form>
