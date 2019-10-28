@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.bpiotrowski.webstore.dto.UserDto;
 import pl.bpiotrowski.webstore.service.UserService;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/register")
@@ -24,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping
-    public String registerUser(@ModelAttribute UserDto userForm) {
+    public String registerUser(@Valid @ModelAttribute UserDto userForm) {
         userService.create(userForm);
         return "redirect:/";
     }

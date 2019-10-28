@@ -7,27 +7,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.bpiotrowski.webstore.dto.ProductDto;
-import pl.bpiotrowski.webstore.service.ProductService;
+import pl.bpiotrowski.webstore.dto.CategoryDto;
+import pl.bpiotrowski.webstore.service.CategoryService;
 
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/product")
-public class ProductController {
+@RequestMapping("/category")
+public class CategoryController {
 
-    private final ProductService productService;
+    private final CategoryService categoryService;
 
     @GetMapping
-    public String addProduct(Model model) {
-        model.addAttribute("productForm", new ProductDto());
-        return "product";
+    public String addCategory(Model model) {
+        model.addAttribute("categoryForm");
+        return "category";
     }
 
     @PostMapping
-    public String addProduct(@Valid @ModelAttribute ProductDto productDto) {
-        productService.create(productDto);
-        return "redirect:/product";
+    public String createCategory(@Valid @ModelAttribute CategoryDto categoryForm) {
+        categoryService.create(categoryForm);
+        return "redirect:/category";
     }
+
 }
