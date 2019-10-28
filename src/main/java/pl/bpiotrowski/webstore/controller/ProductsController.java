@@ -5,28 +5,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.bpiotrowski.webstore.dto.ProductDto;
-import pl.bpiotrowski.webstore.service.ProductService;
+import pl.bpiotrowski.webstore.service.ProductsService;
 
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/product")
-public class ProductController {
+@RequestMapping("/products")
+public class ProductsController {
 
-    private final ProductService productService;
+    private final ProductsService productService;
 
     @GetMapping
-    public String addProduct(Model model) {
-        model.addAttribute("productForm", new ProductDto());
-        return "product";
+    public String getProducts(Model model) {
+        model.addAttribute("productList", productService.findAll());
+        return "products";
     }
 
-    @PostMapping
-    public String addProduct(@Valid ProductDto productDto) {
-        productService.create(productDto);
-        return "redirect:/product";
-    }
 }
