@@ -5,7 +5,12 @@
     margin-right: auto;
 }
 
-textarea {
-    overflow: auto;
-    resize: none;
+.register {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#register-form {
+    min-height: 320px;
 }
