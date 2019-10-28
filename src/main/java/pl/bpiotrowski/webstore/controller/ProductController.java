@@ -12,6 +12,7 @@ import pl.bpiotrowski.webstore.service.CategoryService;
 import pl.bpiotrowski.webstore.service.ProductService;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RequiredArgsConstructor
 @Controller
@@ -29,8 +30,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public String addProduct(@Valid @ModelAttribute ProductDto productDto) {
-        productService.create(productDto);
+    public String addProduct(@Valid @ModelAttribute ProductDto productDto, Principal principal) {
+        productService.create(productDto, principal.getName());
         return "redirect:/product";
     }
 }
