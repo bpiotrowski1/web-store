@@ -2,7 +2,6 @@ package pl.bpiotrowski.webstore.dto;
 
 import lombok.Data;
 import pl.bpiotrowski.webstore.entity.Category;
-import pl.bpiotrowski.webstore.entity.User;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
