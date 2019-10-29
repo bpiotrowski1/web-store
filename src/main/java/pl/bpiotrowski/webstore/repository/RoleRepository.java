@@ -8,9 +8,6 @@ import java.util.List;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    @Query("select r.title from Role r")
-    List<String> findAllTitles();
-
     Role findByTitle(String title);
 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Fragments</title>
@@ -13,14 +13,14 @@
                         <h4>WEB STORE</h4>
                     </a>
                     <a class="item" href="/products" th:text="#{webstore.products}"></a>
-                    <a class="item" href="/product" th:text="#{webstore.product.add.product}"></a>
+                    <a sec:authorize="isAuthenticated()" class="item" href="/product" th:text="#{webstore.product.add.product}"></a>
                     <a class="item" href="/categories" th:text="#{webstore.product.categories}"></a>
-                    <a class="item" href="/category" th:text="#{webstore.product.add.category}"></a>
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" class="item" href="/category" th:text="#{webstore.product.add.category}"></a>
                     <div class="right item">
                         <div class="ui input"><input type="text" placeholder="Search..."></div>
                     </div>
-                    <a class="item" href="/register" th:text="#{webstore.user.register}"></a>
-                    <a class="item" href="/logout" th:text="#{webstore.user.logout}"></a>
+                    <a sec:authorize="isAnonymous()" class="item" href="/register" th:text="#{webstore.user.register}"></a>
+                    <a sec:authorize="isAuthenticated()" class="item" href="/logout" th:text="#{webstore.user.logout}"></a>
                 </div>
             </div>
         </div>
