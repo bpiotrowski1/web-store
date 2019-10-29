@@ -14,3 +14,9 @@
 #register-form {
     min-height: 320px;
 }
+
+#left-menu {
+    margin-top: 115px;
+    margin-left: 50px;
+    float: left;
+}
