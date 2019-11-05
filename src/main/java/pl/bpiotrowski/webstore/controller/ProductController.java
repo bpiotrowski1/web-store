@@ -35,6 +35,12 @@ public class ProductController {
         return "redirect:/products";
     }
 
+    @GetMapping("/remove/{id}")
+    public String removeProductFromCart(@PathVariable Long id, HttpSession session) {
+        cartService.removeProductFromCart(session, id);
+        return "redirect:/products";
+    }
+
     @PostMapping
     public String addProduct(@Valid @ModelAttribute ProductDto productDto, Principal principal) {
         productService.create(productDto, principal.getName());

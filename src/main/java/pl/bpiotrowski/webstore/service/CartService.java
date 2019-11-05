@@ -21,14 +21,30 @@ public class CartService {
     }
 
     public void addProductToCart(HttpSession session, Long id) {
-        List<Product> cart = (List<Product>) session.getAttribute("shoppingCart");
-        if(cart == null) {
-            cart = new ArrayList<>();
-        }
+        List<Product> cart = getCart(session);
         Product toAdd = productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Product " + id + " not found"));
         cart.add(toAdd);
 
         session.setAttribute("shoppingCart", cart);
+    }
+
+    public void removeProductFromCart(HttpSession session, Long id) {
+        List<Product> cart = getCart(session);
+        Product toRemove = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Product " + id + " not found"));
+        cart.remove(toRemove);
+
+        session.setAttribute("shoppingCart", cart);
+    }
+
+    private List<Product> getCart(HttpSession session) {
+
+        List<Product> cart = (List<Product>) session.getAttribute("shoppingCart");
+        if(cart == null) {
+            cart = new ArrayList<>();
+        }
+
+        return cart;
     }
 }
