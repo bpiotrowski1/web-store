@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{webstore.page.title}"></title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div th:replace="fragments :: header"></div>
+<div class="container">
+    <div class="stackable grid container">
+        <h2 class="ui header" th:text="#{webstore.shopping.cart}"></h2>
+        <table class="ui celled table">
+            <thead>
+            <th th:text="#{webstore.product.id}"></th>
+            <th th:text="#{webstore.product.title}"></th>
+            <th th:text="#{webstore.product.description}"></th>
+            <th th:text="#{webstore.product.thumbnail}"></th>
+            <th th:text="#{webstore.product.category}"></th>
+            <th th:text="#{webstore.product.price}"></th>
+            </thead>
+            <th:block th:each="product: ${shoppingCart}">
+                <tr>
+                    <td th:text="${product.id}"></td>
+                    <td th:text="${product.title}"></td>
+                    <td th:text="${product.description}"></td>
+                    <td th:text="${product.thumbnail}"></td>
+                    <td th:text="${product.category.name}"></td>
+                    <td th:text="${product.price}"></td>
+                </tr>
+            </th:block>
+        </table>
+    </div>
+</div>
+
+<div th:replace="fragments :: footer"></div>
+</body>
+</html>

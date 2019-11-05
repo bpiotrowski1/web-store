@@ -19,6 +19,7 @@
                     <th th:text="#{webstore.product.thumbnail}"></th>
                     <th th:text="#{webstore.product.category}"></th>
                     <th th:text="#{webstore.product.price}"></th>
+                    <th th:text="#{webstore.buy}"></th>
                 </thead>
                 <th:block th:each="product: ${productList}">
                     <tr>
@@ -28,6 +29,7 @@
                         <td th:text="${product.thumbnail}"></td>
                         <td th:text="${product.category.name}"></td>
                         <td th:text="${product.price}"></td>
+                        <td><a th:href="@{'/product/buy/' + ${product.id}}" th:text="#{webstore.buy}"></a></td>
                     </tr>
                 </th:block>
             </table>
