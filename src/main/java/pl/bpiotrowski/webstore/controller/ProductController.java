@@ -30,15 +30,15 @@ public class ProductController {
     }
 
     @GetMapping("/buy/{id}")
-    public String addProductToCart(@PathVariable Long id, HttpSession session) {
-        cartService.addProductToCart(session, id);
-        return "redirect:/products";
+    public String addProductToCart(@PathVariable Long id, @RequestParam(name = "quantity", required = false) Integer quantity, HttpSession session) {
+        cartService.addProductToCart(session, quantity, id);
+        return "redirect:/cart";
     }
 
     @GetMapping("/remove/{id}")
     public String removeProductFromCart(@PathVariable Long id, HttpSession session) {
         cartService.removeProductFromCart(session, id);
-        return "redirect:/products";
+        return "redirect:/cart";
     }
 
     @PostMapping
