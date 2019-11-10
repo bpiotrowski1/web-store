@@ -15,6 +15,7 @@
                     <a class="item" href="/products" th:text="#{webstore.products}"></a>
                     <a class="item" href="/categories" th:text="#{webstore.product.categories}"></a>
                     <a class="item" href="/cart" th:text="#{webstore.shopping.cart}"></a>
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" class="item" href="/admin">Admin</a>
                     <div class="right item">
                         <div class="ui input"><input type="text" placeholder="Search..."></div>
                     </div>
@@ -27,7 +28,8 @@
 
     <div th:fragment="left-menu">
         <div id="left-menu" class="ui inverted vertical pointing menu">
-            <a class="item" href="/product" th:text="#{webstore.product.add.product}"></a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" class="item" href="/role" th:text="#{webstore.user.add.role}"></a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" class="item" href="/product" th:text="#{webstore.product.add.product}"></a>
             <a sec:authorize="hasRole('ROLE_ADMIN')" class="item" href="/category" th:text="#{webstore.product.add.category}"></a>
         </div>
     </div>
