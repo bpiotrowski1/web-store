@@ -27,7 +27,7 @@ public class OrderService {
         User purchaser = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found"));
         Map<Product, Integer> order = (Map<Product, Integer>) session.getAttribute("shoppingCart");
-        long lastNumber = orderHeaderRepository.count();
+        long lastNumber = (orderHeaderRepository.findMaxId() == null ? 0 : orderHeaderRepository.findMaxId());
         String number = (lastNumber + 1) + "/" + Calendar.getInstance().get(Calendar.YEAR);
         OrderHeader orderHeader = OrderHeader.builder().number(number).purchaser(purchaser).build();
 
