@@ -21,4 +21,5 @@ public class OrderController {
         orderService.placeOrder(session, principal.getName());
         return "order";
     }
+
 }

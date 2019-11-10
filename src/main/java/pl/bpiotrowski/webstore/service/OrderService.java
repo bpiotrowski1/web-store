@@ -12,6 +12,7 @@ import pl.bpiotrowski.webstore.repository.OrderItemRepository;
 import pl.bpiotrowski.webstore.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
+import java.util.Calendar;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -26,7 +27,9 @@ public class OrderService {
         User purchaser = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found"));
         Map<Product, Integer> order = (Map<Product, Integer>) session.getAttribute("shoppingCart");
-        OrderHeader orderHeader = OrderHeader.builder().number("1/2019").purchaser(purchaser).build();
+        long lastNumber = orderHeaderRepository.count();
+        String number = (lastNumber + 1) + "/" + Calendar.getInstance().get(Calendar.YEAR);
+        OrderHeader orderHeader = OrderHeader.builder().number(number).purchaser(purchaser).build();
 
         orderHeaderRepository.save(orderHeader);
         for(Map.Entry<Product, Integer> entry : order.entrySet()) {
@@ -34,6 +37,7 @@ public class OrderService {
             orderItemRepository.save(orderItem);
         }
 
+        session.removeAttribute("shoppingCart");
     }
 
 }
