@@ -27,7 +27,7 @@
                         <form class="ui form" th:action="@{'/product/buy/' + ${product.id}}" method="get">
                             <div class="inline field">
                                 <input type="number" name="quantity" min="1" max="99" th:value="${shoppingCart.get(product)}">
-                                <button class="ui blue submit button">Zmień</button>
+                                <button class="ui blue submit button" th:text="#{webstore.save}"></button>
                             </div>
                         </form>
                     </td>
@@ -36,6 +36,9 @@
                 </tr>
             </th:block>
         </table>
+        <form th:action="@{order}">
+            <button class="ui blue submit button" th:text="#{webstore.save}"></button>
+        </form>
     </div>
 </div>
 

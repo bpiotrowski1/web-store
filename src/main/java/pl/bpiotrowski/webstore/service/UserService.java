@@ -23,7 +23,7 @@ public class UserService {
 
     private User mapUserDtoToUserEntity(UserDto dto) {
         User entity = new User();
-        Role userRole = roleRepository.findByTitle("ADMIN");
+        Role userRole = roleRepository.findByTitle("USER");
 
         entity.setUsername(dto.getUsername());
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
