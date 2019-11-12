@@ -9,15 +9,13 @@ import pl.bpiotrowski.webstore.entity.OrderHeader;
 import pl.bpiotrowski.webstore.entity.OrderItem;
 import pl.bpiotrowski.webstore.entity.Product;
 import pl.bpiotrowski.webstore.entity.User;
+import pl.bpiotrowski.webstore.exception.EntityNotFoundException;
 import pl.bpiotrowski.webstore.repository.OrderHeaderRepository;
 import pl.bpiotrowski.webstore.repository.OrderItemRepository;
 import pl.bpiotrowski.webstore.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -46,6 +44,7 @@ public class OrderService {
         OrderHeader orderHeader = new OrderHeader();
         orderHeader.setNumber(number);
         orderHeader.setPurchaser(purchaser);
+        orderHeader.setDone(false);
 
         orderHeaderRepository.save(orderHeader);
         for(Map.Entry<Product, Integer> entry : order.entrySet()) {
@@ -56,11 +55,27 @@ public class OrderService {
         session.removeAttribute("shoppingCart");
     }
 
+    public void makeDone(Long id) {
+        OrderHeader toDone = orderHeaderRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Order " + id + " not found"));
+        toDone.setDone(true);
+        orderHeaderRepository.save(toDone);
+    }
+
+    public void undo(Long id) {
+        OrderHeader toDone = orderHeaderRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Order " + id + " not found"));
+        toDone.setDone(false);
+        orderHeaderRepository.save(toDone);
+    }
+
     private OrderHeaderDto mapEntityToDto(OrderHeader orderHeader) {
         return OrderHeaderDto.builder()
                 .id(orderHeader.getId())
                 .number(orderHeader.getNumber())
-                .purchaser(orderHeader.getPurchaser()).build();
+                .purchaser(orderHeader.getPurchaser())
+                .done(orderHeader.isDone())
+                .build();
     }
 
 }

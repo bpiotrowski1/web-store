@@ -21,4 +21,7 @@ public class OrderHeaderDto {
     @NotNull
     private User purchaser;
 
+    @NotNull
+    private boolean done;
+
 }

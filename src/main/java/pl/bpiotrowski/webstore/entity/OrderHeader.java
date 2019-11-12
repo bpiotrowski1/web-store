@@ -16,6 +16,9 @@ public class OrderHeader {
     @Column(nullable = false)
     private String number;
 
+    @Column(nullable = false)
+    private boolean done;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User purchaser;
