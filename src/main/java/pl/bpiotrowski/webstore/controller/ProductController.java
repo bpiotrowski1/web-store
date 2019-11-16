@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.bpiotrowski.webstore.dto.ProductDto;
-import pl.bpiotrowski.webstore.service.CartService;
 import pl.bpiotrowski.webstore.service.CategoryService;
 import pl.bpiotrowski.webstore.service.ProductService;
 
@@ -19,30 +18,29 @@ public class ProductController {
 
     private final ProductService productService;
     private final CategoryService categoryService;
-    private final CartService cartService;
 
-    @GetMapping
-    public String addProduct(Model model) {
-        model.addAttribute("productForm", new ProductDto());
-        model.addAttribute("categoryList", categoryService.findAll());
+    @GetMapping("/{id}")
+    public String getOne(@PathVariable Long id, Model model) {
+        model.addAttribute("product", productService.getOne(id));
         return "product";
     }
 
-    @GetMapping("/buy/{id}")
-    public String addProductToCart(@PathVariable Long id, @RequestParam(name = "quantity", required = false) Integer quantity) {
-        cartService.addProductToCart(quantity, id);
-        return "redirect:/cart";
+    @GetMapping("/{id}/{quantity}")
+    public String changeQuantity(@PathVariable Long id, @PathVariable Integer quantity) {
+        productService.changeQuantity(id, quantity);
+        return "/admin/products";
     }
 
-    @GetMapping("/remove/{id}")
-    public String removeProductFromCart(@PathVariable Long id) {
-        cartService.removeProductFromCart(id);
-        return "redirect:/cart";
+    @GetMapping("/add")
+    public String addProduct(Model model) {
+        model.addAttribute("productForm", new ProductDto());
+        model.addAttribute("categoryList", categoryService.findAll());
+        return "add-product";
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public String addProduct(@Valid @ModelAttribute ProductDto productDto, Principal principal) {
         productService.create(productDto, principal.getName());
-        return "redirect:/product";
+        return "redirect:/products";
     }
 }

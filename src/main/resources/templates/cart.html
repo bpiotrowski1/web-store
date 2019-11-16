@@ -24,7 +24,7 @@
                     <td th:text="${product.thumbnail}"></td>
                     <td th:text="${product.title}"></td>
                     <td>
-                        <form class="ui form" th:action="@{'/product/buy/' + ${product.id}}" method="get">
+                        <form class="ui form" th:action="@{'/cart/buy/' + ${product.id}}" method="get">
                             <div class="inline field">
                                 <input type="number" name="quantity" min="1" max="99" th:value="${shoppingCart.get(product)}">
                                 <button class="ui blue submit button" th:text="#{webstore.save}"></button>
@@ -32,7 +32,7 @@
                         </form>
                     </td>
                     <td th:text="${product.price}"></td>
-                    <td><a th:href="@{'/product/remove/' + ${product.id}}" th:text="#{webstore.remove}"></a></td>
+                    <td><a th:href="@{'/cart/remove/' + ${product.id}}" th:text="#{webstore.remove}"></a></td>
                 </tr>
             </th:block>
         </table>

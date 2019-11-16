@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{webstore.page.title}"></title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+    <div th:replace="fragments :: header"></div>
+    <div class="container">
+        <div class="stackable grid container">
+            <h2 class="ui header" th:text="#{webstore.product.add.product}"></h2>
+            <form class="ui form" th:action="@{/product/add}" method="post" th:object="${productForm}">
+                <div class="field">
+                    <label for="title" th:text="#{webstore.product.title}"></label>
+                    <input type="text" name="title" id="title">
+                </div>
+                <div class="field">
+                    <label for="description" th:text="#{webstore.product.description}"></label>
+                    <textarea style="resize:none" id="description" name="description"></textarea>
+                </div>
+                <div class="field">
+                    <label for="thumbnail" th:text="#{webstore.product.thumbnail}"></label>
+                    <input type="text" name="thumbnail" id="thumbnail">
+                </div>
+                <div class="field">
+                    <label for="category" th:text="#{webstore.product.category}"></label>
+                    <select name="category" id="category" class="ui search dropdown">
+                        <th:block th:each="category : ${categoryList}">
+                            <option th:value="${category.id}" th:text="${category.name}"></option>
+                        </th:block>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="price" th:text="#{webstore.product.price}"></label>
+                    <input type="text" name="price" id="price">
+                </div>
+                <div class="field">
+                    <label for="quantity" th:text="#{webstore.current.inventory}"></label>
+                    <input type="text" name="quantity" id="quantity">
+                </div>
+                <button class="ui blue submit button" th:text="#{webstore.product.add}"></button>
+            </form>
+        </div>
+    </div>
+
+    <div th:replace="fragments :: footer"></div>
+</body>
+</html>

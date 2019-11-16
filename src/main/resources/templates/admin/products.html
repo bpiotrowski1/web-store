@@ -24,7 +24,11 @@
                         <td th:text="${product.thumbnail}"></td>
                         <td th:text="${product.title}"></td>
                         <td th:text="${product.price}"></td>
-                        <td th:text="${product.quantity}"></td>
+                        <td>
+                            <div class="ui form">
+                                <input type="text" th:id="quantity + ${product.id}" tabindex="0" class="hidden" th:onkeyup="'change(' + ${product.id} + ')'" th:value="${product.quantity}">
+                            </div>
+                        </td>
                         <td>
                             <a th:href="@{'/product/' + ${product.id}}" th:text="#{webstore.product.details}"></a>
                         </td>
@@ -35,5 +39,18 @@
     </div>
 
     <div th:replace="fragments :: footer"></div>
+
+    <script src="jquery.js"></script>
+    <script>
+        function change(id) {
+            var toIf = "#quantity" + id;
+            var quantity = $(toIf).val();
+            var url = "/product/" + id + "/" + quantity;
+            $.ajax({
+                type : "GET",
+                url : url
+            })
+        }
+    </script>
 </body>
 </html>
