@@ -24,6 +24,7 @@ public class OrderService {
     private final OrderHeaderRepository orderHeaderRepository;
     private final OrderItemRepository orderItemRepository;
     private final UserRepository userRepository;
+    private final CartService cartService;
 
     public List<OrderHeaderDto> findAll() {
         List<OrderHeader> orderHeaders = orderHeaderRepository.findAll();
@@ -53,10 +54,10 @@ public class OrderService {
         return mapOrderHeaderToDto(orderHeader);
     }
 
-    public void placeOrder(HttpSession session, String username) {
+    public void placeOrder(String username) {
         User purchaser = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found"));
-        Map<Product, Integer> order = (Map<Product, Integer>) session.getAttribute("shoppingCart");
+        Map<Product, Integer> order = cartService.getCart();
         long lastNumber = (orderHeaderRepository.findMaxId() == null ? 0 : orderHeaderRepository.findMaxId());
         String number = (lastNumber + 1) + "/" + Calendar.getInstance().get(Calendar.YEAR);
 
@@ -74,7 +75,7 @@ public class OrderService {
             orderItemRepository.save(orderItem);
         }
 
-        session.removeAttribute("shoppingCart");
+        cartService.getCart().clear();
     }
 
     public void makeDone(Long id) {

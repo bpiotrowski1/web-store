@@ -27,8 +27,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public String placeOrder(HttpSession session, Principal principal) {
-        orderService.placeOrder(session, principal.getName());
+    public String placeOrder(Principal principal) {
+        orderService.placeOrder(principal.getName());
         return "redirect:/";
     }
 

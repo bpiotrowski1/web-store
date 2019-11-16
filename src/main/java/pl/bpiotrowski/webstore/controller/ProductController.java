@@ -9,7 +9,6 @@ import pl.bpiotrowski.webstore.service.CartService;
 import pl.bpiotrowski.webstore.service.CategoryService;
 import pl.bpiotrowski.webstore.service.ProductService;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 
@@ -30,14 +29,14 @@ public class ProductController {
     }
 
     @GetMapping("/buy/{id}")
-    public String addProductToCart(@PathVariable Long id, @RequestParam(name = "quantity", required = false) Integer quantity, HttpSession session) {
-        cartService.addProductToCart(session, quantity, id);
+    public String addProductToCart(@PathVariable Long id, @RequestParam(name = "quantity", required = false) Integer quantity) {
+        cartService.addProductToCart(quantity, id);
         return "redirect:/cart";
     }
 
     @GetMapping("/remove/{id}")
-    public String removeProductFromCart(@PathVariable Long id, HttpSession session) {
-        cartService.removeProductFromCart(session, id);
+    public String removeProductFromCart(@PathVariable Long id) {
+        cartService.removeProductFromCart(id);
         return "redirect:/cart";
     }
 
