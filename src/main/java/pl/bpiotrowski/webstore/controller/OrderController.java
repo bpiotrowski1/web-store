@@ -2,6 +2,9 @@ package pl.bpiotrowski.webstore.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.bpiotrowski.webstore.service.OrderService;
@@ -16,10 +19,17 @@ public class OrderController {
 
     private final OrderService orderService;
 
+    @GetMapping("/{id}")
+    public String getOne(@PathVariable Long id, Model model) {
+        model.addAttribute("itemList", orderService.getItems(id));
+        model.addAttribute("orderHeader", orderService.getHeader(id));
+        return "order";
+    }
+
     @PostMapping
     public String placeOrder(HttpSession session, Principal principal) {
         orderService.placeOrder(session, principal.getName());
-        return "order";
+        return "redirect:/";
     }
 
 }

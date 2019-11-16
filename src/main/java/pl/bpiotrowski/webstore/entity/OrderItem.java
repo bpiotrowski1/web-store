@@ -1,11 +1,9 @@
 package pl.bpiotrowski.webstore.entity;
 
-import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
 
-@Builder
 @Data
 @Entity
 @Table(name = "order_items")
