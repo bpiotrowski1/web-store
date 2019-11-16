@@ -22,8 +22,8 @@ public class CartController {
         return "cart";
     }
 
-    @GetMapping("/buy/{id}")
-    public String addProductToCart(@PathVariable Long id, @RequestParam(name = "quantity", required = false) Integer quantity) {
+    @GetMapping("/buy/{id}/{quantity}")
+    public String addProductToCart(@PathVariable Long id, @PathVariable Integer quantity) {
         cartService.addProductToCart(quantity, id);
         return "redirect:/cart";
     }

@@ -27,7 +27,7 @@
                     <td th:text="${product.price}"></td>
                     <td th:text="${product.quantity}"></td>
                     <td>
-                        <a th:href="@{'/cart/buy/' + ${product.id}}" th:text="#{webstore.buy}"></a>
+                        <a th:href="@{'/cart/buy/' + ${product.id} + '/1'}" th:text="#{webstore.buy}"></a>
                     </td>
                 </tr>
             </table>
