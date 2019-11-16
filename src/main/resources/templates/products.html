@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title th:text="#{webstore.page.title}"></title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
     <div th:replace="fragments :: header"></div>
@@ -13,23 +13,21 @@
             <h2 class="ui header" th:text="#{webstore.products}"></h2>
             <table class="ui celled table">
                 <thead>
-                    <th th:text="#{webstore.product.id}"></th>
-                    <th th:text="#{webstore.product.title}"></th>
-                    <th th:text="#{webstore.product.description}"></th>
                     <th th:text="#{webstore.product.thumbnail}"></th>
-                    <th th:text="#{webstore.product.category}"></th>
+                    <th th:text="#{webstore.product.title}"></th>
                     <th th:text="#{webstore.product.price}"></th>
-                    <th th:text="#{webstore.buy}"></th>
+                    <th th:text="#{webstore.current.inventory}"></th>
+                    <th th:text="#{webstore.product.details}"></th>
                 </thead>
                 <th:block th:each="product: ${productList}">
                     <tr>
-                        <td th:text="${product.id}"></td>
-                        <td th:text="${product.title}"></td>
-                        <td th:text="${product.description}"></td>
                         <td th:text="${product.thumbnail}"></td>
-                        <td th:text="${product.category.name}"></td>
+                        <td th:text="${product.title}"></td>
                         <td th:text="${product.price}"></td>
-                        <td><a th:href="@{'/product/buy/' + ${product.id}}" th:text="#{webstore.buy}"></a></td>
+                        <td th:text="${product.quantity}"></td>
+                        <td>
+                            <a th:href="@{'/product/' + ${product.id}}" th:text="#{webstore.product.details}"></a>
+                        </td>
                     </tr>
                 </th:block>
             </table>

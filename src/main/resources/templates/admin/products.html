@@ -4,38 +4,37 @@
     <meta charset="UTF-8">
     <title th:text="#{webstore.page.title}"></title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
-<div th:replace="fragments :: header"></div>
+    <div th:replace="fragments :: header"></div>
     <div class="container">
         <div class="stackable grid container">
-            <h2 class="ui header" th:text="#{webstore.shopping.cart}"></h2>
+            <h2 class="ui header" th:text="#{webstore.products}"></h2>
             <table class="ui celled table">
                 <thead>
-                <th th:text="#{webstore.product.thumbnail}"></th>
-                <th th:text="#{webstore.product.title}"></th>
-                <th th:text="#{webstore.quantity}"></th>
-                <th th:text="#{webstore.product.price}"></th>
-                <th th:text="#{webstore.remove}"></th>
+                    <th th:text="#{webstore.product.thumbnail}"></th>
+                    <th th:text="#{webstore.product.title}"></th>
+                    <th th:text="#{webstore.product.price}"></th>
+                    <th th:text="#{webstore.current.inventory}"></th>
+                    <th th:text="#{webstore.product.details}"></th>
                 </thead>
-                <th:block th:each="product: ${shoppingCart.keySet()}">
+                <th:block th:each="product: ${productList}">
                     <tr>
                         <td th:text="${product.thumbnail}"></td>
                         <td th:text="${product.title}"></td>
+                        <td th:text="${product.price}"></td>
                         <td>
                             <div class="ui form">
-                                <input type="text" th:id="quantity + ${product.id}" tabindex="0" class="hidden" th:onkeyup="'change(' + ${product.id} + ')'" th:value="${shoppingCart.get(product)}">
+                                <input type="text" th:id="quantity + ${product.id}" tabindex="0" class="hidden" th:onkeyup="'change(' + ${product.id} + ')'" th:value="${product.quantity}">
                             </div>
                         </td>
-                        <td th:text="${product.price}"></td>
-                        <td><a th:href="@{'/cart/remove/' + ${product.id}}" th:text="#{webstore.remove}"></a></td>
+                        <td>
+                            <a th:href="@{'/product/' + ${product.id}}" th:text="#{webstore.product.details}"></a>
+                        </td>
                     </tr>
                 </th:block>
             </table>
-            <form th:action="@{order}" th:method="post">
-                <button class="ui blue submit button" th:text="#{webstore.order}"></button>
-            </form>
         </div>
     </div>
 
@@ -46,7 +45,7 @@
         function change(id) {
             var toIf = "#quantity" + id;
             var quantity = $(toIf).val();
-            var url = "/cart/buy/" + id + "/" + quantity;
+            var url = "/product/" + id + "/" + quantity;
             $.ajax({
                 type : "GET",
                 url : url

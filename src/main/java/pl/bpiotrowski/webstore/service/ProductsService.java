@@ -33,6 +33,7 @@ public class ProductsService {
         dto.setThumbnail(product.getThumbnail());
         dto.setCategory(product.getCategory());
         dto.setPrice(product.getPrice());
+        dto.setQuantity(product.getQuantity());
 
         return dto;
     }

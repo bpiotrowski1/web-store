@@ -24,6 +24,7 @@ public class OrderService {
     private final OrderHeaderRepository orderHeaderRepository;
     private final OrderItemRepository orderItemRepository;
     private final UserRepository userRepository;
+    private final ProductService productService;
     private final CartService cartService;
 
     public List<OrderHeaderDto> findAll() {
@@ -72,6 +73,7 @@ public class OrderService {
             orderItem.setItem(entry.getKey());
             orderItem.setOrderHeader(orderHeader);
             orderItem.setQuantity(entry.getValue());
+            productService.reduceQuantity(orderItem.getItem().getId(), orderItem.getQuantity());
             orderItemRepository.save(orderItem);
         }
 
