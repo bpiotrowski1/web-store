@@ -36,4 +36,7 @@ public class Product {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(nullable = false)
+    private Integer quantity;
+
 }

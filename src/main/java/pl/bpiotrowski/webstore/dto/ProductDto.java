@@ -31,6 +31,9 @@ public class ProductDto {
     private Double price;
     //    private Type type;
 
+    @NotNull
+    private Integer quantity;
+
 //    @NotNull
 //    private User author;
 

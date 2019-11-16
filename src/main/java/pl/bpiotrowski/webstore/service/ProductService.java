@@ -32,6 +32,7 @@ public class ProductService {
         entity.setThumbnail(dto.getThumbnail());
         entity.setCategory(dto.getCategory());
         entity.setPrice(dto.getPrice());
+        entity.setQuantity(dto.getQuantity());
 
         return entity;
     }
