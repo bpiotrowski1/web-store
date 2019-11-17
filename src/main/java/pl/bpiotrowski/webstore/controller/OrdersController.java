@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.bpiotrowski.webstore.service.OrderService;
 
 @RequiredArgsConstructor
@@ -16,8 +17,8 @@ public class OrdersController {
     private final OrderService orderService;
 
     @GetMapping
-    public String showOrders(Model model) {
-        model.addAttribute("orderHeadersList", orderService.findAll());
+    public String showOrders(Model model, @RequestParam(required = false) String done) {
+        model.addAttribute("orderHeadersList", orderService.findAll(done));
         return "orders";
     }
 

@@ -10,32 +10,37 @@
 <div th:replace="fragments :: header"></div>
     <div class="container">
         <div class="stackable grid container">
+            <div th:if="${shoppingCart.size() > 0}">
             <h2 class="ui header" th:text="#{webstore.shopping.cart}"></h2>
-            <table class="ui celled table">
-                <thead>
-                <th th:text="#{webstore.product.thumbnail}"></th>
-                <th th:text="#{webstore.product.title}"></th>
-                <th th:text="#{webstore.quantity}"></th>
-                <th th:text="#{webstore.product.price}"></th>
-                <th th:text="#{webstore.remove}"></th>
-                </thead>
-                <th:block th:each="product: ${shoppingCart.keySet()}">
-                    <tr>
-                        <td th:text="${product.thumbnail}"></td>
-                        <td th:text="${product.title}"></td>
-                        <td>
-                            <div class="ui form">
-                                <input type="text" th:id="quantity + ${product.id}" tabindex="0" class="hidden" th:onkeyup="'change(' + ${product.id} + ')'" th:value="${shoppingCart.get(product)}">
-                            </div>
-                        </td>
-                        <td th:text="${product.price}"></td>
-                        <td><a th:href="@{'/cart/remove/' + ${product.id}}" th:text="#{webstore.remove}"></a></td>
-                    </tr>
-                </th:block>
-            </table>
-            <form th:action="@{order}" th:method="post">
-                <button class="ui blue submit button" th:text="#{webstore.order}"></button>
-            </form>
+                <table class="ui celled table">
+                    <thead>
+                    <th th:text="#{webstore.product.thumbnail}"></th>
+                    <th th:text="#{webstore.product.title}"></th>
+                    <th th:text="#{webstore.quantity}"></th>
+                    <th th:text="#{webstore.product.price}"></th>
+                    <th th:text="#{webstore.remove}"></th>
+                    </thead>
+                    <th:block th:each="product: ${shoppingCart.keySet()}">
+                        <tr>
+                            <td th:text="${product.thumbnail}"></td>
+                            <td th:text="${product.title}"></td>
+                            <td>
+                                <div class="ui form">
+                                    <input type="text" th:id="quantity + ${product.id}" tabindex="0" class="hidden" th:onkeyup="'change(' + ${product.id} + ')'" th:value="${shoppingCart.get(product)}">
+                                </div>
+                            </td>
+                            <td th:text="${product.price}"></td>
+                            <td><a th:href="@{'/cart/remove/' + ${product.id}}" th:text="#{webstore.remove}"></a></td>
+                        </tr>
+                    </th:block>
+                </table>
+                <form th:action="@{order}" th:method="post">
+                    <button class="ui blue submit button" th:text="#{webstore.order}"></button>
+                </form>
+            </div>
+            <div th:unless="${shoppingCart.size() > 0}">
+                <h2 class="ui header" th:text="#{webstore.cart.empty}"></h2>
+            </div>
         </div>
     </div>
 

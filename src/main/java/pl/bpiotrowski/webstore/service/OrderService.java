@@ -27,8 +27,13 @@ public class OrderService {
     private final ProductService productService;
     private final CartService cartService;
 
-    public List<OrderHeaderDto> findAll() {
-        List<OrderHeader> orderHeaders = orderHeaderRepository.findAll();
+    public List<OrderHeaderDto> findAll(String done) {
+        List<OrderHeader> orderHeaders;
+        if(done == null) {
+            orderHeaders = orderHeaderRepository.findAll();
+        } else {
+            orderHeaders = orderHeaderRepository.findAllByDone(Boolean.parseBoolean(done));
+        }
         List<OrderHeaderDto> orderHeadersDto = new ArrayList<>();
         for(OrderHeader entity : orderHeaders) {
             orderHeadersDto.add(mapOrderHeaderToDto(entity));

@@ -11,6 +11,15 @@
 <div class="container">
     <div class="stackable grid container">
         <h2 class="ui header" th:text="#{webstore.orders}"></h2>
+        <div class="form ui">
+            <select id="filter" class="ui menu dropdown" onChange="OnSelectedIndexChange()">
+                <option value="2" th:text="#{webstore.filter.all}"></option>
+                <option th:if="${#request.getParameter('done') == 'true'}" value="1" th:text="#{webstore.filter.done}" selected="selected"></option>
+                <option th:unless="${#request.getParameter('done') == 'true'}" value="1" th:text="#{webstore.filter.done}"></option>
+                <option th:if="${#request.getParameter('done') == 'false'}" value="0" th:text="#{webstore.filter.not.ready}" selected="selected"></option>
+                <option th:unless="${#request.getParameter('done') == 'false'}" value="0" th:text="#{webstore.filter.not.ready}"></option>
+            </select>
+        </div>
         <table class="ui celled table">
             <thead>
             <th th:text="#{webstore.product.id}"></th>
@@ -42,6 +51,18 @@
 <div th:replace="fragments :: footer"></div>
 
 <script src="jquery.js"></script>
+<script>
+    function OnSelectedIndexChange()
+    {
+        if (document.getElementById('filter').value == "1"){
+            location.href="/orders?done=true";
+        } else if (document.getElementById('filter').value == "0") {
+            location.href="/orders?done=false"
+        } else if (document.getElementById('filter').value == "2"){
+            location.href="/orders"
+        }
+    }
+</script>
 <script>
     function makeDone(id, done) {
         if(done === true) {
