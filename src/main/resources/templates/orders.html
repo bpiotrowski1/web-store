@@ -8,7 +8,7 @@
 </head>
 <body>
 <div th:replace="fragments :: header"></div>
-<div class="container">
+<div id="container">
     <div class="stackable grid container">
         <h2 class="ui header" th:text="#{webstore.orders}"></h2>
         <div class="form ui">
@@ -50,7 +50,6 @@
 
 <div th:replace="fragments :: footer"></div>
 
-<script src="jquery.js"></script>
 <script>
     function OnSelectedIndexChange()
     {

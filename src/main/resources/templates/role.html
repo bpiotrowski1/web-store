@@ -8,7 +8,7 @@
 </head>
 <body>
     <div th:replace="fragments :: header"></div>
-    <div class="container">
+    <div id="container">
         <div class="stackable grid container">
             <h2 class="ui header" th:text="#{webstore.role}"></h2>
             <form class="ui form" th:action="@{role}" method="post" th:object="${roleForm}">
