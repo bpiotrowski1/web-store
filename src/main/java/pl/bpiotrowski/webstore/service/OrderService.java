@@ -10,11 +10,13 @@ import pl.bpiotrowski.webstore.entity.OrderItem;
 import pl.bpiotrowski.webstore.entity.Product;
 import pl.bpiotrowski.webstore.entity.User;
 import pl.bpiotrowski.webstore.exception.EntityNotFoundException;
+import pl.bpiotrowski.webstore.exception.QuantityBelowZeroException;
 import pl.bpiotrowski.webstore.repository.OrderHeaderRepository;
 import pl.bpiotrowski.webstore.repository.OrderItemRepository;
 import pl.bpiotrowski.webstore.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -66,15 +68,22 @@ public class OrderService {
         Map<Product, Integer> order = cartService.getCart();
         long lastNumber = (orderHeaderRepository.findMaxId() == null ? 0 : orderHeaderRepository.findMaxId());
         String number = (lastNumber + 1) + "/" + Calendar.getInstance().get(Calendar.YEAR);
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+
 
         OrderHeader orderHeader = new OrderHeader();
         orderHeader.setNumber(number);
         orderHeader.setPurchaser(purchaser);
         orderHeader.setDone(false);
-
+        orderHeader.setDate(timeStamp);
         orderHeaderRepository.save(orderHeader);
+
         for(Map.Entry<Product, Integer> entry : order.entrySet()) {
             OrderItem orderItem = new OrderItem();
+            if(productService.getOne(entry.getKey().getId()).getQuantity() - orderItem.getQuantity() < 0) {
+                orderHeaderRepository.delete(orderHeader);
+                throw new QuantityBelowZeroException(entry.getKey().getId());
+            }
             orderItem.setItem(entry.getKey());
             orderItem.setOrderHeader(orderHeader);
             orderItem.setQuantity(entry.getValue());
@@ -105,6 +114,7 @@ public class OrderService {
                 .number(orderHeader.getNumber())
                 .purchaser(orderHeader.getPurchaser())
                 .done(orderHeader.isDone())
+                .date(orderHeader.getDate())
                 .build();
     }
 
