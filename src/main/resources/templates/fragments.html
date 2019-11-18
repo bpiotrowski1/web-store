@@ -28,7 +28,7 @@
                     <div class="right item">
                         <div class="ui input"><input type="text" placeholder="Search..."></div>
                     </div>
-                    <a sec:authorize="isAnonymous()" class="item" href="/register" th:text="#{webstore.user.register}"></a>
+                    <a sec:authorize="isAnonymous()" class="item" href="/login" th:text="#{webstore.user.login}"></a>
                     <a sec:authorize="isAuthenticated()" class="item" href="/logout" th:text="#{webstore.user.logout}"></a>
                 </div>
             </div>

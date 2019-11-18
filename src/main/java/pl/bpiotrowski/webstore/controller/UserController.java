@@ -14,20 +14,25 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/register")
 public class UserController {
 
     private final UserService userService;
 
-    @GetMapping
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("userForm", new UserDto());
         return "register";
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute UserDto userForm) {
         userService.create(userForm);
-        return "redirect:/";
+        return "redirect:/login";
     }
+
 }

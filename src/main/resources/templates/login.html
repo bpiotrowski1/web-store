@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{webstore.page.title}"></title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div th:replace="fragments :: header"></div>
+    <div id="container" class="container register">
+        <div class="ui placeholder segment">
+            <div class="ui two column very relaxed stackable grid" id="register-form">
+                <div class="column">
+                    <form class="ui form register" th:action="@{/login}" method="post">
+                        <div class="field">
+                            <label for="username" th:text="#{webstore.user.username}"></label>
+                            <div class="ui left icon input">
+                                <input type="text" th:placeholder="#{webstore.user.username}" name="username" id="username">
+                                <i class="user icon"></i>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="password" th:text="#{webstore.user.password}"></label>
+                            <div class="ui left icon input">
+                                <input type="password" th:placeholder="#{webstore.user.password}" name="password" id="password">
+                                <i class="lock icon"></i>
+                            </div>
+                        </div>
+                        <button class="ui blue submit button" th:text="#{webstore.user.login}"></button>
+                    </form>
+                </div>
+                <div class="middle aligned column">
+                    <a class="ui big button" href="/register">
+                        <i class="signup icon"></i>
+                        <span th:text="#{webstore.user.register}"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="ui vertical divider" th:text="#{webstore.or}"></div>
+        </div>
+    </div>
+
+    <div th:replace="fragments :: footer"></div>
+</body>
+</html>
