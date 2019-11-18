@@ -15,7 +15,16 @@
                     <a class="item" href="/products" th:text="#{webstore.products}"></a>
                     <a class="item" href="/categories" th:text="#{webstore.product.categories}"></a>
                     <a class="item" href="/cart" th:text="#{webstore.shopping.cart}"></a>
-                    <a sec:authorize="hasRole('ROLE_ADMIN')" class="item" href="/admin">Admin</a>
+                    <div sec:authorize="hasRole('ROLE_ADMIN')" class="ui simple inverted dropdown item">
+                        <a href="/admin">Admin</a> <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item" href="/product/add" th:text="#{webstore.product.add.product}"></a>
+                            <a class="item" href="/category" th:text="#{webstore.product.add.category}"></a>
+                            <a class="item" href="/orders" th:text="#{webstore.orders}"></a>
+                            <a class="item" href="/admin/products" th:text="#{webstore.products}"></a>
+                            <a class="item" href="/footer" th:text="#{webstore.footer}"></a>
+                        </div>
+                    </div>
                     <div class="right item">
                         <div class="ui input"><input type="text" placeholder="Search..."></div>
                     </div>
@@ -26,22 +35,44 @@
         </div>
     </div>
 
-    <div th:fragment="left-menu">
-        <div id="left-menu" class="ui inverted vertical pointing menu">
-            <a class="item" href="/role" th:text="#{webstore.user.add.role}"></a>
-            <a class="item" href="/product/add" th:text="#{webstore.product.add.product}"></a>
-            <a class="item" href="/category" th:text="#{webstore.product.add.category}"></a>
-            <a class="item" href="/orders" th:text="#{webstore.orders}"></a>
-            <a class="item" href="/admin/products" th:text="#{webstore.products}"></a>
-        </div>
-    </div>
-
     <div th:fragment="footer">
-<!--        <div class="ui inverted vertical footer segment">-->
-<!--            <div class="ui container">-->
-<!--                Copyright Błażej Piotrowski. All Rights Reserved-->
-<!--            </div>-->
-<!--        </div>-->
+        <div id="footer" class="ui inverted vertical footer segment">
+            <div class="ui container">
+                <div class="ui stackable inverted divided equal height stackable grid">
+                    <div class="three wide column">
+                        <div class="ui inverted link list">
+                            <a href="#" class="item" th:text="#{webstore.about}"></a>
+                            <a href="#" class="item" th:text="#{webstore.contact}"></a>
+                            <a href="#" class="item" th:text="#{webstore.policies}"></a>
+                        </div>
+                    </div>
+                    <div class="three wide column">
+                        <div class="ui inverted link list">
+                            <div th:if="${footer.facebook != ''}" >
+                                <i class="facebook icon"></i>
+                                <a th:href="${'http://' + footer.facebook}" class="item">Facebook</a>
+                            </div>
+                            <div th:if="${footer.instagram != ''}">
+                                <i class="instagram icon"></i>
+                                <a th:href="${'http://' + footer.instagram}" class="item">Instagram</a>
+                            </div>
+                            <div th:if="${footer.twitter != ''}">
+                                <i class="twitter icon"></i>
+                                <a th:href="${'http://' + footer.twitter}" class="item">Twitter</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ten wide column">
+                        <div class="ui inverted link list">
+                            <a href="#" class="item" th:text="#{webstore.help}"></a>
+                        </div>
+                        <div class="right">
+                            <p>© 2019, Błażej Piotrowski</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"
                 integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="

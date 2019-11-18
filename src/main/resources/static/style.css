@@ -1,3 +1,7 @@
+#container {
+    min-height: 571px;
+}
+
 .container {
     max-width: 1127px;
     margin-top: 70px;
@@ -19,4 +23,18 @@
     margin-top: 115px;
     margin-left: 50px;
     float: left;
+    display: block;
+}
+
+#footer {
+    margin-top: 100px;
+    height: 200px;
+}
+
+#footer > i {
+    float: left;
+}
+
+.right {
+    text-align: right;
 }

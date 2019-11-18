@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{webstore.page.title}"></title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div th:replace="fragments :: header"></div>
+    <div id="container">
+        <div class="stackable grid container">
+            <h2 class="ui header" th:text="#{webstore.footer}"></h2>
+            <form class="ui form" th:action="@{footer}" method="post" th:object="${footerForm}">
+                <div class="field">
+                    <label for="facebook">Facebook</label>
+                    <input type="text" name="facebook" id="facebook" th:value="${footerForm.facebook}">
+                </div>
+                <div class="field">
+                    <label for="instagram">Instagram</label>
+                    <input type="text" name="instagram" id="instagram" th:value="${footerForm.instagram}">
+                </div>
+                <div class="field">
+                    <label for="twitter">Twitter</label>
+                    <input type="text" name="twitter" id="twitter" th:value="${footerForm.twitter}">
+                </div>
+                <button class="ui blue submit button" th:text="#{webstore.product.add}"></button>
+            </form>
+        </div>
+    </div>
+
+    <div th:replace="fragments :: footer"></div>
+</body>
+</html>

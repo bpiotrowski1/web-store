@@ -7,27 +7,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.bpiotrowski.webstore.dto.RoleDto;
-import pl.bpiotrowski.webstore.service.RoleService;
-
-import javax.validation.Valid;
+import pl.bpiotrowski.webstore.dto.FooterDto;
+import pl.bpiotrowski.webstore.service.FooterService;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/role")
-public class RoleController {
+@RequestMapping("/footer")
+public class FooterController {
 
-    private final RoleService roleService;
+    private final FooterService footerService;
 
     @GetMapping
-    public String addRole(Model model) {
-        model.addAttribute("roleForm", new RoleDto());
-        return "role";
+    public String changeFooter(Model model) {
+        model.addAttribute("footerForm", footerService.findOne());
+        return "footer";
     }
 
     @PostMapping
-    public String createRole(@Valid @ModelAttribute RoleDto roleForm) {
-        roleService.create(roleForm);
-        return "redirect:/role";
+    public String saveFooter(@ModelAttribute FooterDto footerDto) {
+        footerService.update(footerDto);
+        return "redirect:/footer";
     }
+
 }
