@@ -15,7 +15,16 @@
                     <a class="item" href="/products" th:text="#{webstore.products}"></a>
                     <a class="item" href="/categories" th:text="#{webstore.product.categories}"></a>
                     <a class="item" href="/cart" th:text="#{webstore.shopping.cart}"></a>
-                    <a sec:authorize="hasRole('ROLE_ADMIN')" class="item" href="/admin">Admin</a>
+                    <div sec:authorize="hasRole('ROLE_ADMIN')" class="ui simple inverted dropdown item">
+                        <a href="/admin">Admin</a> <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item" href="/product/add" th:text="#{webstore.product.add.product}"></a>
+                            <a class="item" href="/category" th:text="#{webstore.product.add.category}"></a>
+                            <a class="item" href="/orders" th:text="#{webstore.orders}"></a>
+                            <a class="item" href="/admin/products" th:text="#{webstore.products}"></a>
+                            <a class="item" href="/footer" th:text="#{webstore.footer}"></a>
+                        </div>
+                    </div>
                     <div class="right item">
                         <div class="ui input"><input type="text" placeholder="Search..."></div>
                     </div>
@@ -23,16 +32,6 @@
                     <a sec:authorize="isAuthenticated()" class="item" href="/logout" th:text="#{webstore.user.logout}"></a>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div th:fragment="left-menu">
-        <div id="left-menu" class="ui inverted vertical pointing menu">
-            <a class="item" href="/role" th:text="#{webstore.user.add.role}"></a>
-            <a class="item" href="/product/add" th:text="#{webstore.product.add.product}"></a>
-            <a class="item" href="/category" th:text="#{webstore.product.add.category}"></a>
-            <a class="item" href="/orders" th:text="#{webstore.orders}"></a>
-            <a class="item" href="/admin/products" th:text="#{webstore.products}"></a>
         </div>
     </div>
 
@@ -49,17 +48,17 @@
                     </div>
                     <div class="three wide column">
                         <div class="ui inverted link list">
-                            <div>
+                            <div th:if="${footer.facebook != ''}" >
                                 <i class="facebook icon"></i>
-<!--                                <a th:href="${footerForm.facebook}" class="item">Facebook</a>-->
+                                <a th:href="${'http://' + footer.facebook}" class="item">Facebook</a>
                             </div>
-                            <div>
+                            <div th:if="${footer.instagram != ''}">
                                 <i class="instagram icon"></i>
-                                <a href="#" class="item">Instagram</a>
+                                <a th:href="${'http://' + footer.instagram}" class="item">Instagram</a>
                             </div>
-                            <div>
+                            <div th:if="${footer.twitter != ''}">
                                 <i class="twitter icon"></i>
-                                <a href="#" class="item">Twitter</a>
+                                <a th:href="${'http://' + footer.twitter}" class="item">Twitter</a>
                             </div>
                         </div>
                     </div>
