@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -18,9 +19,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/product/add", "/category", "/role", "/admin/**", "/orders", "/order/**",
                             "/footer").hasRole("ADMIN")
             .and()
-                .formLogin().defaultSuccessUrl("/")
+                .formLogin().loginPage("/login")
             .and()
-                .logout().logoutSuccessUrl("/");
+                .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID")
+                    .permitAll()
+            .and()
+                .httpBasic();
     }
 
     @Bean
