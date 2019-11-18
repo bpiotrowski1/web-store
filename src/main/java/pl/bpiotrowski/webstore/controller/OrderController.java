@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.bpiotrowski.webstore.service.OrderService;
+import pl.bpiotrowski.webstore.service.UserService;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -18,11 +19,13 @@ import java.security.Principal;
 public class OrderController {
 
     private final OrderService orderService;
+    private final UserService userService;
 
     @GetMapping("/{id}")
     public String getOne(@PathVariable Long id, Model model) {
         model.addAttribute("itemList", orderService.getItems(id));
         model.addAttribute("orderHeader", orderService.getHeader(id));
+        model.addAttribute("address", userService.findAddressByOrderId(id));
         return "order";
     }
 
