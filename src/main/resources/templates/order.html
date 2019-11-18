@@ -11,6 +11,7 @@
 <div id="container">
     <div class="stackable grid container">
         <h2 class="ui header" th:text="#{webstore.order.details} + ' ' + ${orderHeader.number}"></h2>
+        <h4 class="ui dividing header" th:text="#{webstore.order}"></h4>
         <table class="ui celled table">
             <thead>
                 <th th:text="#{webstore.product.thumbnail}"></th>
@@ -24,6 +25,22 @@
                     <td th:text="${item.quantity}"></td>
                 </tr>
             </th:block>
+        </table>
+        <br/>
+        <h4 class="ui dividing header" th:text="#{webstore.user.billing.address}"></h4>
+        <table class="ui celled table">
+            <thead>
+                <th th:text="#{webstore.user.first.name}"></th>
+                <th th:text="#{webstore.user.last.name}"></th>
+                <th th:text="#{webstore.user.billing.street}"></th>
+                <th th:text="#{webstore.user.billing.house}"></th>
+            </thead>
+            <tr>
+                <td th:text="${address.firstName}"></td>
+                <td th:text="${address.lastName}"></td>
+                <td th:text="${address.street}"></td>
+                <td th:text="${address.houseNumber}"></td>
+            </tr>
         </table>
     </div>
 </div>
