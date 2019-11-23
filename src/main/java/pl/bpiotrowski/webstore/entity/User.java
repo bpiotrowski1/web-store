@@ -1,6 +1,7 @@
 package pl.bpiotrowski.webstore.entity;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,7 +33,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList(String.valueOf(role));
+        return AuthorityUtils.createAuthorityList("ROLE_" + role.getTitle());
     }
 
     @Override
