@@ -12,7 +12,6 @@ import pl.bpiotrowski.webstore.service.OrderService;
 import pl.bpiotrowski.webstore.service.UserService;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Email;
 
 @RequiredArgsConstructor
 @Controller

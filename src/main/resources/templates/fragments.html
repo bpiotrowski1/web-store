@@ -27,7 +27,9 @@
                         </div>
                     </div>
                     <div class="right item">
-                        <div class="ui input"><input type="text" placeholder="Search..."></div>
+                        <form class="ui input" th:action="@{/products/search}" method="get">
+                            <input type="text" name="q" id="q" th:placeholder="#{webstore.search}">
+                        </form>
                     </div>
                     <a sec:authorize="isAnonymous()" class="item" href="/login" th:text="#{webstore.user.login}"></a>
                     <a sec:authorize="isAuthenticated()" class="item" href="/logout" th:text="#{webstore.user.logout}"></a>
@@ -42,9 +44,15 @@
                 <div class="ui stackable inverted divided equal height stackable grid">
                     <div class="three wide column">
                         <div class="ui inverted link list">
-                            <a href="#" class="item" th:text="#{webstore.about}"></a>
-                            <a href="#" class="item" th:text="#{webstore.contact}"></a>
-                            <a href="#" class="item" th:text="#{webstore.policies}"></a>
+                            <div>
+                                <a href="#" class="item" th:text="#{webstore.about}"></a>
+                            </div>
+                            <div>
+                                <a href="#" class="item" th:text="#{webstore.contact}"></a>
+                            </div>
+                            <div>
+                                <a href="#" class="item" th:text="#{webstore.policies}"></a>
+                            </div>
                         </div>
                     </div>
                     <div class="three wide column">
@@ -65,7 +73,9 @@
                     </div>
                     <div class="ten wide column">
                         <div class="ui inverted link list">
-                            <a href="#" class="item" th:text="#{webstore.help}"></a>
+                            <div>
+                                <a href="#" class="item" th:text="#{webstore.help}"></a>
+                            </div>
                         </div>
                         <div class="right">
                             <p>© 2019, Błażej Piotrowski</p>

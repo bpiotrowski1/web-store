@@ -35,6 +35,17 @@ public class ProductsService {
         return result;
     }
 
+    public List<ProductDto> findAllByQuery(String query) {
+        List<Product> products = productRepository.findAllByTitleContains(query);
+        List<ProductDto> result = new ArrayList<>();
+
+        for(Product product : products) {
+            result.add(mapProductEntityToDto(product));
+        }
+
+        return result;
+    }
+
     private ProductDto mapProductEntityToDto(Product product) {
         ProductDto dto = new ProductDto();
 

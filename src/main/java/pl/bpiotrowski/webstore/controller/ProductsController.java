@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.bpiotrowski.webstore.service.ProductsService;
 
 @RequiredArgsConstructor
@@ -17,6 +18,12 @@ public class ProductsController {
     @GetMapping("/products")
     public String getProducts(Model model) {
         model.addAttribute("productList", productService.findAll());
+        return "products";
+    }
+
+    @GetMapping("/products/search")
+    public String searchProducts(@RequestParam(name = "q") String query, Model model) {
+        model.addAttribute("productList", productService.findAllByQuery(query));
         return "products";
     }
 
