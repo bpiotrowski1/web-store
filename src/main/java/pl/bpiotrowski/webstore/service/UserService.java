@@ -20,22 +20,6 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final OrderHeaderRepository orderHeaderRepository;
-
-    public UserDto findAddressByOrderId(Long id) {
-        UserDto dto = new UserDto();
-        OrderHeader orderHeader = orderHeaderRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Order header " + id + " not found"));
-        User entity = userRepository.findById(orderHeader.getPurchaser().getId())
-                .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
-
-        dto.setFirstName(entity.getFirstName());
-        dto.setLastName(entity.getLastName());
-        dto.setStreet(entity.getStreet());
-        dto.setHouseNumber(entity.getHouseNumber());
-
-        return dto;
-    }
 
     public void create(UserDto userForm) {
         if(!userForm.getPassword().equals(userForm.getRepeatPassword())) {
@@ -51,10 +35,6 @@ public class UserService {
         entity.setUsername(dto.getUsername());
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         entity.setEmail(dto.getEmail());
-        entity.setFirstName(dto.getFirstName());
-        entity.setLastName(dto.getLastName());
-        entity.setStreet(dto.getStreet());
-        entity.setHouseNumber(dto.getHouseNumber());
         entity.setRole(userRole);
 
         return entity;

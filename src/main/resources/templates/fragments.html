@@ -15,6 +15,7 @@
                     <a class="item" href="/products" th:text="#{webstore.products}"></a>
                     <a class="item" href="/categories" th:text="#{webstore.product.categories}"></a>
                     <a class="item" href="/cart" th:text="#{webstore.shopping.cart}"></a>
+                    <a sec:authorize="isAuthenticated()" class="item" href="/user-panel" th:text="#{webstore.account.short}"></a>
                     <div sec:authorize="hasRole('ROLE_ADMIN')" class="ui simple inverted dropdown item">
                         <a href="/admin">Admin</a> <i class="dropdown icon"></i>
                         <div class="menu">
