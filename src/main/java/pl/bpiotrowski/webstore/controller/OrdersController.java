@@ -11,7 +11,7 @@ import pl.bpiotrowski.webstore.service.OrderService;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/orders")
+@RequestMapping("/admin/orders")
 public class OrdersController {
 
     private final OrderService orderService;
@@ -19,19 +19,19 @@ public class OrdersController {
     @GetMapping
     public String showOrders(Model model, @RequestParam(required = false) String done) {
         model.addAttribute("orderHeadersList", orderService.findAll(done));
-        return "orders";
+        return "admin/orders";
     }
 
     @GetMapping("/done/{id}")
     public String makeDone(@PathVariable Long id) {
         orderService.makeDone(id);
-        return "redirect:/orders";
+        return "redirect:/admin/orders";
     }
 
     @GetMapping("/undo/{id}")
     public String undo(@PathVariable Long id) {
         orderService.undo(id);
-        return "redirect:/orders";
+        return "redirect:/admin/orders";
     }
 
 }

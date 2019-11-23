@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title th:text="#{webstore.page.title}"></title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
 <div th:replace="fragments :: header"></div>
@@ -56,24 +56,24 @@
     function OnSelectedIndexChange()
     {
         if (document.getElementById('filter').value == "1"){
-            location.href="/orders?done=true";
+            location.href="/admin/orders?done=true";
         } else if (document.getElementById('filter').value == "0") {
-            location.href="/orders?done=false"
+            location.href="/admin/orders?done=false"
         } else if (document.getElementById('filter').value == "2"){
-            location.href="/orders"
+            location.href="/admin/orders"
         }
     }
 </script>
 <script>
     function makeDone(id, done) {
         if(done === true) {
-            var url = "orders/undo/" + id;
+            var url = "/admin/orders/undo/" + id;
             $.ajax({
                 type : "GET",
                 url : url
             })
         } else {
-            url = "orders/done/" + id;
+            url = "/admin/orders/done/" + id;
             $.ajax({
                 type: "GET",
                 url: url

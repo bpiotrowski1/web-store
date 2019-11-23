@@ -45,7 +45,7 @@
         function change(id) {
             var toIf = "#quantity" + id;
             var quantity = $(toIf).val();
-            var url = "/product/" + id + "/" + quantity;
+            var url = "/admin/product/" + id + "/" + quantity;
             $.ajax({
                 type : "GET",
                 url : url
