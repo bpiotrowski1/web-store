@@ -1,18 +1,16 @@
 package pl.bpiotrowski.webstore.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.bpiotrowski.webstore.entity.User;
 import pl.bpiotrowski.webstore.service.AddressService;
 import pl.bpiotrowski.webstore.service.OrderService;
-import pl.bpiotrowski.webstore.service.UserService;
-
-import javax.servlet.http.HttpSession;
-import java.security.Principal;
 
 @RequiredArgsConstructor
 @Controller
@@ -31,8 +29,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public String placeOrder(Principal principal) {
-        orderService.placeOrder(principal.getName());
+    public String placeOrder(@AuthenticationPrincipal User user) {
+        orderService.placeOrder(user.getId());
         return "redirect:/";
     }
 

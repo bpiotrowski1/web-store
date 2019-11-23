@@ -35,16 +35,16 @@ public class AddressService {
         return dto;
     }
 
-    public AddressDto findAddress(String username) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("User " + username + " not found"));
+    public AddressDto findAddress(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
         Address entity = (addressRepository.findByUserId(user.getId()) != null ? addressRepository.findByUserId(user.getId()) : new Address());
         return mapAddressEntityToDto(entity);
     }
 
-    public void create(AddressDto dto, String username) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("User " + username + " not found"));
+    public void create(AddressDto dto, Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
         Address entity = mapAddressDtoToEntity(dto);
         entity.setUser(user);
         addressRepository.save(entity);
