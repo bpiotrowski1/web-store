@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.bpiotrowski.webstore.dto.CategoryDto;
 import pl.bpiotrowski.webstore.entity.Category;
+import pl.bpiotrowski.webstore.exception.EntityNotFoundException;
 import pl.bpiotrowski.webstore.repository.CategoryRepository;
 
 import java.util.ArrayList;
@@ -22,6 +23,12 @@ public class CategoryService {
             dtos.add(mapCategoryEntityToCategoryDto(category));
         }
         return dtos;
+    }
+
+    public CategoryDto findById(Long id) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Category " + id + " not found"));
+        return mapCategoryEntityToCategoryDto(category);
     }
 
     public void create(CategoryDto categoryDto) {
