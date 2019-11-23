@@ -38,30 +38,6 @@
                         <i class="lock icon"></i>
                     </div>
                 </div>
-                <br/>
-                <h4 class="ui dividing header" th:text="#{webstore.shipping.information}"></h4>
-                <div class="field">
-                    <label th:text="#{webstore.personal.data}"></label>
-                    <div class="two fields">
-                        <div class="field">
-                            <input type="text" name="firstName" id="firstName" th:placeholder="#{webstore.user.first.name}"/>
-                        </div>
-                        <div class="field">
-                            <input type="text" name="lastName" id="lastName" th:placeholder="#{webstore.user.last.name}"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="field">
-                    <label th:text="#{webstore.user.billing.address}"></label>
-                    <div class="fields">
-                        <div class="twelve wide field">
-                            <input type="text" name="street" id="street" th:placeholder="#{webstore.user.billing.street}"/>
-                        </div>
-                        <div class="four wide field">
-                            <input type="text" name="houseNumber" id="houseNumber" th:placeholder="#{webstore.user.billing.house}"/>
-                        </div>
-                    </div>
-                </div>
                 <button class="ui blue submit button" th:text="#{webstore.user.register}"></button>
             </form>
         </div>

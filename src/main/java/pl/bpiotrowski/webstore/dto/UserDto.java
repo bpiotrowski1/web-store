@@ -1,6 +1,7 @@
 package pl.bpiotrowski.webstore.dto;
 
 import lombok.Data;
+import pl.bpiotrowski.webstore.entity.Address;
 import pl.bpiotrowski.webstore.entity.Role;
 
 import javax.persistence.Column;
@@ -26,21 +27,6 @@ public class UserDto {
     @Email
     @Size(min = 6, max = 255)
     private String email;
-
-    @NotBlank
-    @Size(min = 2, max = 255)
-    private String firstName;
-
-    @NotBlank
-    @Size(min = 2, max = 255)
-    private String lastName;
-
-    @Size(min = 2, max = 255)
-    private String street;
-
-    @NotBlank
-    @Size(min = 1, max = 255)
-    private String houseNumber;
 
     private Role role;
 

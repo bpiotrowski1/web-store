@@ -22,18 +22,6 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
-    private String firstName;
-
-    @Column(nullable = false)
-    private String lastName;
-
-    @Column(nullable = false)
-    private String street;
-
-    @Column(nullable = false)
-    private String houseNumber;
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "role_id")
     private Role role;
