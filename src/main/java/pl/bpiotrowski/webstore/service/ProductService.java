@@ -22,9 +22,9 @@ public class ProductService {
         return mapEntityToDto(product);
     }
 
-    public void create(ProductDto dto, String username) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("User " + username + " not found"));
+    public void create(ProductDto dto, Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
         Product entity = mapDtoToEntity(dto);
         entity.setUser(user);
         productRepository.save(entity);

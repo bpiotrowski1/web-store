@@ -43,9 +43,9 @@ public class OrderService {
         return orderHeadersDto;
     }
 
-    public List<OrderHeaderDto> findAllByUsername(String username) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("User " + username + " not found"));
+    public List<OrderHeaderDto> findAllByUserId(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
         List<OrderHeader> orderHeaders = orderHeaderRepository.findAllByUserId(user.getId());
         List<OrderHeaderDto> result = new ArrayList<>();
 
@@ -74,9 +74,9 @@ public class OrderService {
         return mapOrderHeaderToDto(orderHeader);
     }
 
-    public void placeOrder(String username) {
-        User purchaser = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found"));
+    public void placeOrder(Long id) {
+        User purchaser = userRepository.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("User " + id + " not found"));
         Map<Product, Integer> order = cartService.getCart();
         long lastNumber = (orderHeaderRepository.findMaxId() == null ? 0 : orderHeaderRepository.findMaxId());
         String number = (lastNumber + 1) + "/" + Calendar.getInstance().get(Calendar.YEAR);

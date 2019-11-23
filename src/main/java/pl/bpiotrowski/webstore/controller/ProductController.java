@@ -1,15 +1,16 @@
 package pl.bpiotrowski.webstore.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.bpiotrowski.webstore.dto.ProductDto;
+import pl.bpiotrowski.webstore.entity.User;
 import pl.bpiotrowski.webstore.service.CategoryService;
 import pl.bpiotrowski.webstore.service.ProductService;
 
 import javax.validation.Valid;
-import java.security.Principal;
 
 @RequiredArgsConstructor
 @Controller
@@ -39,8 +40,8 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public String addProduct(@Valid @ModelAttribute ProductDto productDto, Principal principal) {
-        productService.create(productDto, principal.getName());
+    public String addProduct(@Valid @ModelAttribute ProductDto productDto, @AuthenticationPrincipal User user) {
+        productService.create(productDto, user.getId());
         return "redirect:/products";
     }
 }
