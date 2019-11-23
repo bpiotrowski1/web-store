@@ -4,16 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.bpiotrowski.webstore.dto.AddressDto;
 import pl.bpiotrowski.webstore.entity.User;
 import pl.bpiotrowski.webstore.service.AddressService;
 import pl.bpiotrowski.webstore.service.OrderService;
+import pl.bpiotrowski.webstore.service.UserService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 
 @RequiredArgsConstructor
 @Controller
@@ -21,6 +20,7 @@ import javax.validation.Valid;
 public class UserPanelController {
 
     private final AddressService addressService;
+    private final UserService userService;
     private final OrderService orderService;
 
     @GetMapping
@@ -28,6 +28,12 @@ public class UserPanelController {
         model.addAttribute("addressForm", addressService.findAddress(user.getId()));
         model.addAttribute("ordersList", orderService.findAllByUserId(user.getId()));
         return "userPanel";
+    }
+
+    @GetMapping("/change/email")
+    public String updateEmail(@RequestParam(name = "email") String email, @RequestParam(name="repeatEmail") String repeatEmail, @AuthenticationPrincipal User user) {
+        userService.changeEmail(email, repeatEmail, user.getId());
+        return "redirect:/user-panel";
     }
 
     @PostMapping
