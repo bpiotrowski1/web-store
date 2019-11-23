@@ -26,7 +26,12 @@
                             <a class="item" href="/admin/footer" th:text="#{webstore.footer}"></a>
                         </div>
                     </div>
-                    <div class="right item">
+                    <div sec:authorize="hasRole('ROLE_ADMIN')" class="right item">
+                        <form class="ui input" th:action="@{/admin/products/search}" method="get">
+                            <input type="text" name="q" id="q" th:placeholder="#{webstore.search}">
+                        </form>
+                    </div>
+                    <div sec:authorize="!hasRole('ROLE_ADMIN')" class="right item">
                         <form class="ui input" th:action="@{/products/search}" method="get">
                             <input type="text" name="q" id="q" th:placeholder="#{webstore.search}">
                         </form>

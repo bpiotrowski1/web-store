@@ -33,4 +33,10 @@ public class ProductsController {
         return "admin/products";
     }
 
+    @GetMapping("admin/products/search")
+    public String searchAdminProducts(@RequestParam(name = "q") String query, Model model) {
+        model.addAttribute("productList", productService.findAllByQuery(query));
+        return "admin/products";
+    }
+
 }
