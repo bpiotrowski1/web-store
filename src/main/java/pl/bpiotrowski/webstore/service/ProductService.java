@@ -30,6 +30,12 @@ public class ProductService {
         productRepository.save(entity);
     }
 
+    public Integer getQuantity(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Product " + id + " not found"));
+        return product.getQuantity();
+    }
+
     public void changeQuantity(Long id, Integer quantity) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Product " + id + " not found"));

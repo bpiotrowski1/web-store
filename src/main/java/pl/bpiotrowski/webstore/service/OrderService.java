@@ -80,13 +80,13 @@ public class OrderService {
 
         for(Map.Entry<Product, Integer> entry : order.entrySet()) {
             OrderItem orderItem = new OrderItem();
-            if(productService.getOne(entry.getKey().getId()).getQuantity() - orderItem.getQuantity() < 0) {
+            orderItem.setQuantity(entry.getValue());
+            orderItem.setItem(entry.getKey());
+            if(productService.getQuantity(orderItem.getItem().getId()) < orderItem.getQuantity()) {
                 orderHeaderRepository.delete(orderHeader);
                 throw new QuantityBelowZeroException(entry.getKey().getId());
             }
-            orderItem.setItem(entry.getKey());
             orderItem.setOrderHeader(orderHeader);
-            orderItem.setQuantity(entry.getValue());
             productService.reduceQuantity(orderItem.getItem().getId(), orderItem.getQuantity());
             orderItemRepository.save(orderItem);
         }
