@@ -10,12 +10,11 @@
     <div th:replace="fragments :: header"></div>
     <div id="container" class="container">
         <div class="stackable grid container">
-            <h2 class="ui header" th:text="#{webstore.products}"></h2>
+            <h2 class="ui header" th:text="#{webstore.product.category} + ': ' + ${category.name}"></h2>
             <table class="ui celled table">
                 <thead>
                     <th th:text="#{webstore.product.thumbnail}"></th>
                     <th th:text="#{webstore.product.title}"></th>
-                    <th th:text="#{webstore.product.category}"></th>
                     <th th:text="#{webstore.product.price}"></th>
                     <th th:text="#{webstore.current.inventory}"></th>
                     <th th:text="#{webstore.product.details}"></th>
@@ -24,9 +23,6 @@
                     <tr>
                         <td th:text="${product.thumbnail}"></td>
                         <td th:text="${product.title}"></td>
-                        <td>
-                            <a th:href="${'/category/' + product.category.id}" th:text="${product.category.name}"></a>
-                        </td>
                         <td th:text="${product.price}"></td>
                         <td th:text="${product.quantity}"></td>
                         <td>

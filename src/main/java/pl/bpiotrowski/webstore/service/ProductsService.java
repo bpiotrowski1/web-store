@@ -19,12 +19,23 @@ public class ProductsService {
         List<Product> products = productRepository.findAll();
         List<ProductDto> dto = new ArrayList<>();
         for (Product entity : products) {
-            dto.add(mapEntityToDto(entity));
+            dto.add(mapProductEntityToDto(entity));
         }
         return dto;
     }
 
-    private ProductDto mapEntityToDto(Product product) {
+    public List<ProductDto> findAllByCategoryId(Long id) {
+        List<Product> products = productRepository.findAllByCategoryId(id);
+        List<ProductDto> result = new ArrayList<>();
+
+        for(Product product : products) {
+            result.add(mapProductEntityToDto(product));
+        }
+
+        return result;
+    }
+
+    private ProductDto mapProductEntityToDto(Product product) {
         ProductDto dto = new ProductDto();
 
         dto.setId(product.getId());
@@ -37,5 +48,4 @@ public class ProductsService {
 
         return dto;
     }
-
 }

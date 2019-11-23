@@ -13,13 +13,13 @@
             <h2 class="ui header" th:text="#{webstore.product.categories}"></h2>
             <table class="ui celled table">
                 <thead>
-                    <th th:text="#{webstore.product.id}"></th>
                     <th th:text="#{webstore.product.name}"></th>
                 </thead>
                 <th:block th:each="category: ${categoriesList}">
                     <tr>
-                        <td th:text="${category.id}"></td>
-                        <td th:text="${category.name}"></td>
+                        <td>
+                            <a th:href="${'/category/' + category.id}" th:text="${category.name}"></a>
+                        </td>
                     </tr>
                 </th:block>
             </table>
