@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <title th:text="#{webstore.page.title}"></title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
     <div th:replace="fragments :: header"></div>
     <div id="container">
         <div class="stackable grid container">
             <h2 class="ui header" th:text="#{webstore.product.category}"></h2>
-            <form class="ui form" th:action="@{category}" method="post" th:object="${categoryForm}">
+            <form class="ui form" th:action="@{/admin/category}" method="post" th:object="${categoryForm}">
                 <div class="field">
                     <label for="name" th:text="#{webstore.product.name}"></label>
                     <input type="text" name="name" id="name">

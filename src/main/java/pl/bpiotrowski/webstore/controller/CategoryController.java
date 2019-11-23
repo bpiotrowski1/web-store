@@ -14,7 +14,7 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/category")
+@RequestMapping("/admin/category")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -22,13 +22,13 @@ public class CategoryController {
     @GetMapping
     public String addCategory(Model model) {
         model.addAttribute("categoryForm");
-        return "category";
+        return "admin/category";
     }
 
     @PostMapping
     public String createCategory(@Valid @ModelAttribute CategoryDto categoryForm) {
         categoryService.create(categoryForm);
-        return "redirect:/category";
+        return "redirect:/admin/category";
     }
 
 }

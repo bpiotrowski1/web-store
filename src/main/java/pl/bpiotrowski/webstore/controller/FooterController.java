@@ -12,7 +12,7 @@ import pl.bpiotrowski.webstore.service.FooterService;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/footer")
+@RequestMapping("/admin/footer")
 public class FooterController {
 
     private final FooterService footerService;
@@ -20,13 +20,13 @@ public class FooterController {
     @GetMapping
     public String changeFooter(Model model) {
         model.addAttribute("footerForm", footerService.findOne());
-        return "footer";
+        return "admin/footer";
     }
 
     @PostMapping
     public String saveFooter(@ModelAttribute FooterDto footerDto) {
         footerService.update(footerDto);
-        return "redirect:/footer";
+        return "redirect:/admin/footer";
     }
 
 }

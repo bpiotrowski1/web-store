@@ -14,34 +14,33 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/product")
 public class ProductController {
 
     private final ProductService productService;
     private final CategoryService categoryService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/product/{id}")
     public String getOne(@PathVariable Long id, Model model) {
         model.addAttribute("product", productService.getOne(id));
         return "product";
     }
 
-    @GetMapping("/{id}/{quantity}")
+    @GetMapping("/admin/product/{id}/{quantity}")
     public String changeQuantity(@PathVariable Long id, @PathVariable Integer quantity) {
         productService.changeQuantity(id, quantity);
-        return "/admin/products";
+        return "admin/products";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/admin/product/add")
     public String addProduct(Model model) {
         model.addAttribute("productForm", new ProductDto());
         model.addAttribute("categoryList", categoryService.findAll());
-        return "add-product";
+        return "admin/addProduct";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/admin/product/add")
     public String addProduct(@Valid @ModelAttribute ProductDto productDto, @AuthenticationPrincipal User user) {
         productService.create(productDto, user.getId());
-        return "redirect:/products";
+        return "redirect:/admin/products";
     }
 }
