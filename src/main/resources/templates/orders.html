@@ -25,22 +25,24 @@
             <th th:text="#{webstore.product.id}"></th>
             <th th:text="#{webstore.order.number}"></th>
             <th th:text="#{webstore.user}"></th>
-            <th th:text="#{webstore.done}"></th>
             <th th:text="#{webstore.order.details}"></th>
+            <th th:text="#{webstore.order.place.date}"></th>
+            <th th:text="#{webstore.done}"></th>
             </thead>
             <th:block th:each="orderHeader: ${orderHeadersList}">
                 <tr>
                     <td th:text="${orderHeader.id}"></td>
                     <td th:text="${orderHeader.number}"></td>
                     <td th:text="${orderHeader.purchaser.username}"></td>
+                    <td>
+                        <a th:href="@{'/order/' + ${orderHeader.id}}" th:text="#{webstore.order.details}"></a>
+                    </td>
+                    <td th:text="${orderHeader.date}"></td>
                     <td th:if="${orderHeader.done}">
                         <input type="checkbox" tabindex="0" class="hidden" th:onclick="'makeDone(' + ${orderHeader.id} + ', ' + ${orderHeader.done} + ')'" checked>
                     </td>
                     <td th:unless="${orderHeader.done}">
                         <input type="checkbox" tabindex="0" class="hidden" th:onclick="'makeDone(' + ${orderHeader.id} + ', ' + ${orderHeader.done} + ')'">
-                    </td>
-                    <td>
-                        <a th:href="@{'/order/' + ${orderHeader.id}}" th:text="#{webstore.order.details}"></a>
                     </td>
                 </tr>
             </th:block>

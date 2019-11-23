@@ -22,6 +22,9 @@ public class OrderHeaderDto {
     private User purchaser;
 
     @NotNull
+    private String date;
+
+    @NotNull
     private boolean done;
 
 }

@@ -2,7 +2,6 @@ package pl.bpiotrowski.webstore.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.ApplicationScope;
 import pl.bpiotrowski.webstore.dto.FooterDto;
 import pl.bpiotrowski.webstore.entity.Footer;
 import pl.bpiotrowski.webstore.exception.EntityNotFoundException;
