@@ -10,9 +10,25 @@
     <div th:replace="fragments :: header"></div>
     <div id="container">
         <div class="stackable grid container">
-            <h2 class="ui header" th:text="#{webstore.account}"></h2>
+            <h2 class="ui header" th:text="#{webstore.account.short}"></h2>
+            <form class="ui form" th:action="@{/user-panel/change/email}" method="get">
+                <h4 class="ui dividing header" th:text="#{webstore.change.email}"></h4>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <input type="text" name="email" id="email" placeholder="E-mail"/>
+                        <i class="mail icon"></i>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <input type="text" name="repeatEmail" id="repeatEmail" th:placeholder="#{webstore.user.repeat.email}"/>
+                        <i class="mail icon"></i>
+                    </div>
+                </div>
+                <button class="ui blue submit button" th:text="#{webstore.save}"></button>
+            </form>
+            <br/>
             <form class="ui form" th:action="@{/user-panel}" method="post" th:object="${addressForm}">
-                <br/>
                 <h4 class="ui dividing header" th:text="#{webstore.shipping.information}"></h4>
                 <div class="field">
                     <label th:text="#{webstore.personal.data}"></label>
@@ -37,6 +53,7 @@
                     </div>
                 </div>
                 <button class="ui blue submit button" th:text="#{webstore.save}"></button>
+            </form>
                 <br/>
                 <h4 class="ui dividing header" th:text="#{webstore.orders}"></h4>
                 <table class="ui celled table">
@@ -55,7 +72,7 @@
                         </tr>
                     </th:block>
                 </table>
-            </form>
+            </div>
         </div>
     </div>
 

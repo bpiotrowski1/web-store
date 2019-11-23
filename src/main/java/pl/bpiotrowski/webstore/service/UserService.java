@@ -28,6 +28,15 @@ public class UserService {
         userRepository.save(mapUserDtoToUserEntity(userForm));
     }
 
+    public void changeEmail(String email, String repeatEmail, Long id) {
+        if(email.equals(repeatEmail)) {
+            User user = userRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
+            user.setEmail(email);
+            userRepository.save(user);
+        }
+    }
+
     private User mapUserDtoToUserEntity(UserDto dto) {
         User entity = new User();
         Role userRole = roleRepository.findByTitle("USER");
