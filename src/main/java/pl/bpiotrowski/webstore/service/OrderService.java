@@ -43,6 +43,18 @@ public class OrderService {
         return orderHeadersDto;
     }
 
+    public List<OrderHeaderDto> findAllByUsername(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User " + username + " not found"));
+        List<OrderHeader> orderHeaders = orderHeaderRepository.findAllByUserId(user.getId());
+        List<OrderHeaderDto> result = new ArrayList<>();
+
+        for (OrderHeader orderHeader : orderHeaders) {
+            result.add(mapOrderHeaderToDto(orderHeader));
+        }
+        return result;
+    }
+
     public List<OrderItemDto> getItems(Long id) {
         OrderHeader orderHeader = orderHeaderRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Order header " + id + " not found"));
@@ -69,7 +81,6 @@ public class OrderService {
         long lastNumber = (orderHeaderRepository.findMaxId() == null ? 0 : orderHeaderRepository.findMaxId());
         String number = (lastNumber + 1) + "/" + Calendar.getInstance().get(Calendar.YEAR);
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-
 
         OrderHeader orderHeader = new OrderHeader();
         orderHeader.setNumber(number);
@@ -126,5 +137,4 @@ public class OrderService {
                 .orderHeader(orderItem.getOrderHeader())
                 .build();
     }
-
 }

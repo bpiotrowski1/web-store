@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.bpiotrowski.webstore.dto.AddressDto;
 import pl.bpiotrowski.webstore.service.AddressService;
+import pl.bpiotrowski.webstore.service.OrderService;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -19,10 +20,12 @@ import java.security.Principal;
 public class UserPanelController {
 
     private final AddressService addressService;
+    private final OrderService orderService;
 
     @GetMapping
     public String getUserPanel(Model model, Principal principal) {
         model.addAttribute("addressForm", addressService.findAddress(principal.getName()));
+        model.addAttribute("ordersList", orderService.findAllByUsername(principal.getName()));
         return "userPanel";
     }
 

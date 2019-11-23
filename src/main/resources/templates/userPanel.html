@@ -36,7 +36,25 @@
                         </div>
                     </div>
                 </div>
-                <button class="ui blue submit button" th:text="#{webstore.user.register}"></button>
+                <button class="ui blue submit button" th:text="#{webstore.save}"></button>
+                <br/>
+                <h4 class="ui dividing header" th:text="#{webstore.orders}"></h4>
+                <table class="ui celled table">
+                    <thead>
+                    <th th:text="#{webstore.order.number}"></th>
+                    <th th:text="#{webstore.order.details}"></th>
+                    <th th:text="#{webstore.order.place.date}"></th>
+                    </thead>
+                    <th:block th:each="orderHeader: ${ordersList}">
+                        <tr>
+                            <td th:text="${orderHeader.number}"></td>
+                            <td>
+                                <a th:href="@{'/order/' + ${orderHeader.id}}" th:text="#{webstore.order.details}"></a>
+                            </td>
+                            <td th:text="${orderHeader.date}"></td>
+                        </tr>
+                    </th:block>
+                </table>
             </form>
         </div>
     </div>
