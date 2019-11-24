@@ -17,8 +17,8 @@ public class OrdersController {
     private final OrderService orderService;
 
     @GetMapping
-    public String showOrders(Model model, @RequestParam(required = false) String done) {
-        model.addAttribute("orderHeadersList", orderService.findAll(done));
+    public String showOrders(Model model, @RequestParam(required = false, name = "done") String done, @RequestParam(name = "p") int page) {
+        model.addAttribute("orderHeadersList", orderService.findAll(page, done));
         return "admin/orders";
     }
 

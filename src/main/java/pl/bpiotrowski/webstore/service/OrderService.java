@@ -1,6 +1,9 @@
 package pl.bpiotrowski.webstore.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.bpiotrowski.webstore.dto.OrderHeaderDto;
@@ -29,15 +32,16 @@ public class OrderService {
     private final ProductService productService;
     private final CartService cartService;
 
-    public List<OrderHeaderDto> findAll(String done) {
-        List<OrderHeader> orderHeaders;
-        if(done == null) {
-            orderHeaders = orderHeaderRepository.findAll();
-        } else {
-            orderHeaders = orderHeaderRepository.findAllByDone(Boolean.parseBoolean(done));
-        }
+    public List<OrderHeaderDto> findAll(int page, String done) {
+        Page<OrderHeader> orderHeaders;
+        Pageable paging = PageRequest.of(page, 20);
+//        if(done == null) {
+            orderHeaders = orderHeaderRepository.findAll(paging);
+//        } else {
+//            orderHeaders = orderHeaderRepository.findAllByDone(Boolean.parseBoolean(done));
+//        }
         List<OrderHeaderDto> orderHeadersDto = new ArrayList<>();
-        for(OrderHeader entity : orderHeaders) {
+        for(OrderHeader entity : orderHeaders.getContent()) {
             orderHeadersDto.add(mapOrderHeaderToDto(entity));
         }
         return orderHeadersDto;

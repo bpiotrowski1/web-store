@@ -47,6 +47,11 @@
                 </tr>
             </th:block>
         </table>
+        <div class="right">
+            <span th:text="#{webstore.page}"></span>:
+            <a th:class="${#request.getParameter('p').equals('0')} ? 'active' : ''" href="/admin/orders?p=0">0</a>
+            <a th:class="${#request.getParameter('p').equals('1')} ? 'active' : ''" href="/admin/orders?p=1">1</a>
+        </div>
     </div>
 </div>
 
@@ -56,7 +61,7 @@
     function OnSelectedIndexChange()
     {
         if (document.getElementById('filter').value == "1"){
-            location.href="/admin/orders?done=true";
+            location.href="/admin/orders?done=true"
         } else if (document.getElementById('filter').value == "0") {
             location.href="/admin/orders?done=false"
         } else if (document.getElementById('filter').value == "2"){
