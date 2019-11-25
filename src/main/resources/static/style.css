@@ -43,6 +43,7 @@ html::-webkit-scrollbar {
     text-align: right;
 }
 
-.right > .active {
+.active {
+    color: aquamarine;
     font-weight: bold;
 }

@@ -18,9 +18,12 @@ import pl.bpiotrowski.webstore.repository.OrderHeaderRepository;
 import pl.bpiotrowski.webstore.repository.OrderItemRepository;
 import pl.bpiotrowski.webstore.repository.UserRepository;
 
-import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static pl.bpiotrowski.webstore.statics.Constants.PAGE_SIZE;
 
 @RequiredArgsConstructor
 @Service
@@ -32,19 +35,22 @@ public class OrderService {
     private final ProductService productService;
     private final CartService cartService;
 
-    public List<OrderHeaderDto> findAll(int page, String done) {
+    public Page<OrderHeader> findAll(Pageable page, String done) {
         Page<OrderHeader> orderHeaders;
-        Pageable paging = PageRequest.of(page, 20);
 //        if(done == null) {
-            orderHeaders = orderHeaderRepository.findAll(paging);
+            orderHeaders = orderHeaderRepository.findAll(page);
 //        } else {
 //            orderHeaders = orderHeaderRepository.findAllByDone(Boolean.parseBoolean(done));
 //        }
-        List<OrderHeaderDto> orderHeadersDto = new ArrayList<>();
-        for(OrderHeader entity : orderHeaders.getContent()) {
-            orderHeadersDto.add(mapOrderHeaderToDto(entity));
-        }
-        return orderHeadersDto;
+        return orderHeaders;
+    }
+
+    public List<Integer> getTotalPages() {
+        Pageable paging = PageRequest.of(0, PAGE_SIZE);
+        Page<OrderHeader> orderHeaders = orderHeaderRepository.findAll(paging);
+        return IntStream.rangeClosed(1, orderHeaders.getTotalPages())
+                .boxed()
+                .collect(Collectors.toList());
     }
 
     public List<OrderHeaderDto> findAllByUserId(Long id) {

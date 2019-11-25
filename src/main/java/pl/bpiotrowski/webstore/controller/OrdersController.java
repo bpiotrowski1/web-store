@@ -1,6 +1,7 @@
 package pl.bpiotrowski.webstore.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.bpiotrowski.webstore.service.OrderService;
+
+import static pl.bpiotrowski.webstore.statics.Constants.PAGE_SIZE;
 
 @RequiredArgsConstructor
 @Controller
@@ -18,7 +21,8 @@ public class OrdersController {
 
     @GetMapping
     public String showOrders(Model model, @RequestParam(required = false, name = "done") String done, @RequestParam(name = "p") int page) {
-        model.addAttribute("orderHeadersList", orderService.findAll(page, done));
+        model.addAttribute("orderHeadersList", orderService.findAll(PageRequest.of(page - 1, PAGE_SIZE), done));
+        model.addAttribute("pageNumbers", orderService.getTotalPages());
         return "admin/orders";
     }
 
