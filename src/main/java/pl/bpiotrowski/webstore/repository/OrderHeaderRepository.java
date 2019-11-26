@@ -1,5 +1,7 @@
 package pl.bpiotrowski.webstore.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import pl.bpiotrowski.webstore.entity.OrderHeader;
@@ -12,7 +14,7 @@ public interface OrderHeaderRepository extends PagingAndSortingRepository<OrderH
     Long findMaxId();
 
     @Query("select o from OrderHeader o where user_id=:id")
-    List<OrderHeader> findAllByUserId(Long id);
+    Page<OrderHeader> findAllByUserId(Pageable pageable, Long id);
 
     List<OrderHeader> findAllByDone(boolean done);
 

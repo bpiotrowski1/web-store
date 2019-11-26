@@ -2,7 +2,6 @@ package pl.bpiotrowski.webstore.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -23,8 +22,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static pl.bpiotrowski.webstore.statics.Constants.PAGE_SIZE;
-
 @RequiredArgsConstructor
 @Service
 public class OrderService {
@@ -35,34 +32,27 @@ public class OrderService {
     private final ProductService productService;
     private final CartService cartService;
 
-    public Page<OrderHeader> findAll(Pageable page, String done) {
+    public Page<OrderHeader> findAll(Pageable pageable, String done) {
         Page<OrderHeader> orderHeaders;
 //        if(done == null) {
-            orderHeaders = orderHeaderRepository.findAll(page);
+            orderHeaders = orderHeaderRepository.findAll(pageable);
 //        } else {
 //            orderHeaders = orderHeaderRepository.findAllByDone(Boolean.parseBoolean(done));
 //        }
         return orderHeaders;
     }
 
-    public List<Integer> getTotalPages() {
-        Pageable paging = PageRequest.of(0, PAGE_SIZE);
-        Page<OrderHeader> orderHeaders = orderHeaderRepository.findAll(paging);
-        return IntStream.rangeClosed(1, orderHeaders.getTotalPages())
+    public List<Integer> getTotalPages(Page<OrderHeader> page) {
+        return IntStream.rangeClosed(1, page.getTotalPages())
                 .boxed()
                 .collect(Collectors.toList());
     }
 
-    public List<OrderHeaderDto> findAllByUserId(Long id) {
+    public Page<OrderHeader> findAllByUserId(Pageable pageable, Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
-        List<OrderHeader> orderHeaders = orderHeaderRepository.findAllByUserId(user.getId());
-        List<OrderHeaderDto> result = new ArrayList<>();
 
-        for (OrderHeader orderHeader : orderHeaders) {
-            result.add(mapOrderHeaderToDto(orderHeader));
-        }
-        return result;
+        return orderHeaderRepository.findAllByUserId(pageable, user.getId());
     }
 
     public List<OrderItemDto> getItems(Long id) {
