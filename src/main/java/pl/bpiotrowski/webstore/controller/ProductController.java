@@ -38,9 +38,24 @@ public class ProductController {
         return "admin/addProduct";
     }
 
+    @GetMapping("/admin/product/edit/{id}")
+    public String editProduct(Model model, @PathVariable Long id) {
+        model.addAttribute("productForm", productService.getOne(id));
+        model.addAttribute("categoryList", categoryService.findAll());
+        return "admin/editProduct";
+    }
+
     @PostMapping("/admin/product/add")
     public String addProduct(@Valid @ModelAttribute ProductDto productDto, @AuthenticationPrincipal User user) {
         productService.create(productDto, user.getId());
         return "redirect:/admin/products";
     }
+
+    @PostMapping("/admin/product/edit/{id}")
+    public String editProduct(@Valid @ModelAttribute ProductDto productDto, @PathVariable Long id) {
+        productDto.setId(id);
+        productService.update(productDto);
+        return "redirect:/admin/products";
+    }
+
 }

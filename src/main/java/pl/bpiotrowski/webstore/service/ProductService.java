@@ -30,6 +30,18 @@ public class ProductService {
         productRepository.save(entity);
     }
 
+    public void update(ProductDto dto) {
+        Product updatedProduct = productRepository.findById(dto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Product " + dto.getId() + " not found"));
+        updatedProduct.setTitle(dto.getTitle());
+        updatedProduct.setDescription(dto.getDescription());
+        updatedProduct.setThumbnail(dto.getThumbnail());
+        updatedProduct.setCategory(dto.getCategory());
+        updatedProduct.setPrice(dto.getPrice());
+        updatedProduct.setQuantity(dto.getQuantity());
+        productRepository.save(updatedProduct);
+    }
+
     public Integer getQuantity(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Product " + id + " not found"));
