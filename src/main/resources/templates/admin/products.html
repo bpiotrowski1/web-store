@@ -17,7 +17,7 @@
                     <th th:text="#{webstore.product.title}"></th>
                     <th th:text="#{webstore.product.price}"></th>
                     <th th:text="#{webstore.current.inventory}"></th>
-                    <th th:text="#{webstore.product.details}"></th>
+                    <th th:text="#{webstore.product.edit}"></th>
                 </thead>
                 <th:block th:each="product: ${productList}">
                     <tr>
@@ -30,7 +30,7 @@
                             </div>
                         </td>
                         <td>
-                            <a th:href="@{'/product/' + ${product.id}}" th:text="#{webstore.product.details}"></a>
+                            <a th:href="@{'/admin/product/edit/' + ${product.id}}" th:text="#{webstore.product.edit}"></a>
                         </td>
                     </tr>
                 </th:block>
