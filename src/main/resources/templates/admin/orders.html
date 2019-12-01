@@ -29,7 +29,7 @@
             <th th:text="#{webstore.order.place.date}"></th>
             <th th:text="#{webstore.done}"></th>
             </thead>
-            <th:block th:each="orderHeader: ${orderHeadersList.content}">
+            <th:block th:each="orderHeader: ${orderHeadersList}">
                 <tr>
                     <td th:text="${orderHeader.id}"></td>
                     <td th:text="${orderHeader.number}"></td>
@@ -49,11 +49,16 @@
         </table>
         <div class="right">
             <span th:text="#{webstore.page}"></span>:
+<!--            <a th:each="pageNumber : ${pageNumbers}"-->
+<!--               th:href="@{/admin/orders(p=${pageNumber})}"-->
+<!--               th:text="${pageNumber + ' '}"-->
+<!--               th:class="">-->
+<!--                &lt;!&ndash;               th:class="${pageNumber==orderHeadersList.number + 1} ? 'active' : ''">&ndash;&gt;-->
+<!--            </a>-->
             <a th:each="pageNumber : ${pageNumbers}"
                th:href="@{/admin/orders(p=${pageNumber})}"
                th:text="${pageNumber + ' '}"
-               th:class="${pageNumber==orderHeadersList.number + 1} ? 'active' : ''">
-            </a>
+               th:class="${param.p[0] == pageNumber} ? 'active' : ''"></a>
         </div>
     </div>
 </div>

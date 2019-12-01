@@ -2,6 +2,7 @@ package pl.bpiotrowski.webstore.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static pl.bpiotrowski.webstore.statics.Constants.FIRST_PAGE;
+import static pl.bpiotrowski.webstore.statics.Constants.ORDERS_PAGE_SIZE;
+
 @RequiredArgsConstructor
 @Service
 public class OrderService {
@@ -32,20 +36,33 @@ public class OrderService {
     private final ProductService productService;
     private final CartService cartService;
 
-    public Page<OrderHeader> findAll(Pageable pageable, String done) {
-        Page<OrderHeader> orderHeaders;
+    public List<OrderHeaderDto> findAll(int p, String done) {
+        Page<OrderHeader> page = orderHeaderRepository.findAll(PageRequest.of(p, ORDERS_PAGE_SIZE));
+        List<OrderHeader> list = page.toList();
+        List<OrderHeaderDto> dto = new ArrayList<>();
+
+        for (OrderHeader orderHeader : list) {
+            dto.add(mapOrderHeaderToDto(orderHeader));
+        }
+
+        return dto;
+//        Page<OrderHeader> orderHeaders;
 //        if(done == null) {
-            orderHeaders = orderHeaderRepository.findAll(pageable);
+//            orderHeaders = orderHeaderRepository.findAll(pageable);
 //        } else {
 //            orderHeaders = orderHeaderRepository.findAllByDone(Boolean.parseBoolean(done));
 //        }
-        return orderHeaders;
+//        return orderHeaderList;
     }
 
-    public List<Integer> getTotalPages(Page<OrderHeader> page) {
-        return IntStream.rangeClosed(1, page.getTotalPages())
-                .boxed()
-                .collect(Collectors.toList());
+    public List<String> getTotalPages() {
+        Page<OrderHeader> page = orderHeaderRepository.findAll(PageRequest.of(FIRST_PAGE, ORDERS_PAGE_SIZE));
+        List<String> result = new ArrayList<>();
+        int totalPages = page.getTotalPages();
+        for (int i = 1; i <= totalPages; i++) {
+            result.add(String.valueOf(i));
+        }
+        return result;
     }
 
     public Page<OrderHeader> findAllByUserId(Pageable pageable, Long id) {

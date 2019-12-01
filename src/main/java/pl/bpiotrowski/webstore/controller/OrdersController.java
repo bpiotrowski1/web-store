@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.bpiotrowski.webstore.entity.OrderHeader;
 import pl.bpiotrowski.webstore.service.OrderService;
 
+import java.util.List;
+
 import static pl.bpiotrowski.webstore.statics.Constants.ORDERS_PAGE_SIZE;
 
 @RequiredArgsConstructor
@@ -23,9 +25,8 @@ public class OrdersController {
 
     @GetMapping
     public String showOrders(Model model, @RequestParam(required = false, name = "done") String done, @RequestParam(name = "p") int p) {
-        Page<OrderHeader> page = orderService.findAll(PageRequest.of(p - 1, ORDERS_PAGE_SIZE), done);
-        model.addAttribute("orderHeadersList", page);
-        model.addAttribute("pageNumbers", orderService.getTotalPages(page));
+        model.addAttribute("orderHeadersList", orderService.findAll(p - 1, done));
+        model.addAttribute("pageNumbers", orderService.getTotalPages());
         return "admin/orders";
     }
 
