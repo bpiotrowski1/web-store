@@ -37,7 +37,12 @@ public class OrderService {
     private final CartService cartService;
 
     public List<OrderHeaderDto> findAll(int p, String done) {
-        Page<OrderHeader> page = orderHeaderRepository.findAll(PageRequest.of(p, ORDERS_PAGE_SIZE));
+        Page<OrderHeader> page;
+        if(done == null) {
+             page = orderHeaderRepository.findAll(PageRequest.of(p, ORDERS_PAGE_SIZE));
+        } else {
+            page = orderHeaderRepository.findAllByDone(PageRequest.of(p, ORDERS_PAGE_SIZE), Boolean.parseBoolean(done));
+        }
         List<OrderHeader> list = page.toList();
         List<OrderHeaderDto> dto = new ArrayList<>();
 
@@ -46,13 +51,6 @@ public class OrderService {
         }
 
         return dto;
-//        Page<OrderHeader> orderHeaders;
-//        if(done == null) {
-//            orderHeaders = orderHeaderRepository.findAll(pageable);
-//        } else {
-//            orderHeaders = orderHeaderRepository.findAllByDone(Boolean.parseBoolean(done));
-//        }
-//        return orderHeaderList;
     }
 
     public List<String> pagesCount(Page<OrderHeader> page) {

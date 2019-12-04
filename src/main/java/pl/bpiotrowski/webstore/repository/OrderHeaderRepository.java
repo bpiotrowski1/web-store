@@ -16,6 +16,6 @@ public interface OrderHeaderRepository extends PagingAndSortingRepository<OrderH
     @Query("select o from OrderHeader o where user_id=:id")
     Page<OrderHeader> findAllByUserId(Pageable pageable, Long id);
 
-    List<OrderHeader> findAllByDone(boolean done);
+    Page<OrderHeader> findAllByDone(Pageable pageable, boolean done);
 
 }
