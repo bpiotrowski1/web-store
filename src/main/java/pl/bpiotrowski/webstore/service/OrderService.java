@@ -1,6 +1,10 @@
 package pl.bpiotrowski.webstore.service;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.criterion.Order;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.bpiotrowski.webstore.dto.OrderHeaderDto;
@@ -15,9 +19,12 @@ import pl.bpiotrowski.webstore.repository.OrderHeaderRepository;
 import pl.bpiotrowski.webstore.repository.OrderItemRepository;
 import pl.bpiotrowski.webstore.repository.UserRepository;
 
-import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static pl.bpiotrowski.webstore.statics.Constants.*;
 
 @RequiredArgsConstructor
 @Service
@@ -29,30 +36,54 @@ public class OrderService {
     private final ProductService productService;
     private final CartService cartService;
 
-    public List<OrderHeaderDto> findAll(String done) {
-        List<OrderHeader> orderHeaders;
+    public List<OrderHeaderDto> findAll(int p, String done) {
+        Page<OrderHeader> page;
         if(done == null) {
-            orderHeaders = orderHeaderRepository.findAll();
+             page = orderHeaderRepository.findAll(PageRequest.of(p, ORDERS_PAGE_SIZE));
         } else {
-            orderHeaders = orderHeaderRepository.findAllByDone(Boolean.parseBoolean(done));
+            page = orderHeaderRepository.findAllByDone(PageRequest.of(p, ORDERS_PAGE_SIZE), Boolean.parseBoolean(done));
         }
-        List<OrderHeaderDto> orderHeadersDto = new ArrayList<>();
-        for(OrderHeader entity : orderHeaders) {
-            orderHeadersDto.add(mapOrderHeaderToDto(entity));
+        List<OrderHeader> list = page.toList();
+        List<OrderHeaderDto> dto = new ArrayList<>();
+
+        for (OrderHeader orderHeader : list) {
+            dto.add(mapOrderHeaderToDto(orderHeader));
         }
-        return orderHeadersDto;
+
+        return dto;
     }
 
-    public List<OrderHeaderDto> findAllByUserId(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
-        List<OrderHeader> orderHeaders = orderHeaderRepository.findAllByUserId(user.getId());
-        List<OrderHeaderDto> result = new ArrayList<>();
-
-        for (OrderHeader orderHeader : orderHeaders) {
-            result.add(mapOrderHeaderToDto(orderHeader));
+    public List<String> pagesCount(Page<OrderHeader> page) {
+        List<String> result = new ArrayList<>();
+        int totalPages = page.getTotalPages();
+        for (int i = 1; i <= totalPages; i++) {
+            result.add(String.valueOf(i));
         }
         return result;
+    }
+
+    public List<String> getUserPanelTotalPages(Long id) {
+        Page<OrderHeader> page = orderHeaderRepository.findAllByUserId(PageRequest.of(FIRST_PAGE, USER_PANEL_PAGE_SIZE), id);
+        return pagesCount(page);
+    }
+
+    public List<String> getOrdersTotalPages() {
+        Page<OrderHeader> page = orderHeaderRepository.findAll(PageRequest.of(FIRST_PAGE, ORDERS_PAGE_SIZE));
+        return pagesCount(page);
+    }
+
+    public List<OrderHeaderDto> findAllByUserId(int p, Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
+        Page<OrderHeader> page = orderHeaderRepository.findAllByUserId(PageRequest.of(p, USER_PANEL_PAGE_SIZE), user.getId());
+        List<OrderHeader> list = page.toList();
+        List<OrderHeaderDto> dto = new ArrayList<>();
+
+        for(OrderHeader orderHeader : list) {
+            dto.add(mapOrderHeaderToDto(orderHeader));
+        }
+
+        return dto;
     }
 
     public List<OrderItemDto> getItems(Long id) {

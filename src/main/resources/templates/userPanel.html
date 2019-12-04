@@ -72,6 +72,13 @@
                         </tr>
                     </th:block>
                 </table>
+                <div class="right">
+                    <span th:text="#{webstore.page}"></span>:
+                    <a th:each="pageNumber : ${pageNumbers}"
+                       th:href="@{/user-panel(p=${pageNumber})}"
+                       th:text="${pageNumber + ' '}"
+                       th:class="${param.p[0] == pageNumber} ? 'active' : ''"></a>
+                </div>
             </div>
         </div>
     </div>

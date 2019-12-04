@@ -23,9 +23,10 @@ public class UserPanelController {
     private final OrderService orderService;
 
     @GetMapping
-    public String getUserPanel(Model model, @AuthenticationPrincipal User user) {
+    public String getUserPanel(Model model, @AuthenticationPrincipal User user, @RequestParam(name = "p") int p) {
         model.addAttribute("addressForm", addressService.findAddress(user.getId()));
-        model.addAttribute("ordersList", orderService.findAllByUserId(user.getId()));
+        model.addAttribute("ordersList", orderService.findAllByUserId(p - 1, user.getId()));
+        model.addAttribute("pageNumbers", orderService.getUserPanelTotalPages(user.getId()));
         return "userPanel";
     }
 

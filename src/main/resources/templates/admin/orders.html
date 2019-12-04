@@ -47,6 +47,13 @@
                 </tr>
             </th:block>
         </table>
+        <div class="right">
+            <span th:text="#{webstore.page}"></span>:
+            <a th:each="pageNumber : ${pageNumbers}"
+               th:href="@{/admin/orders(p=${pageNumber})}"
+               th:text="${pageNumber + ' '}"
+               th:class="${param.p[0] == pageNumber} ? 'active' : ''"></a>
+        </div>
     </div>
 </div>
 
@@ -56,11 +63,11 @@
     function OnSelectedIndexChange()
     {
         if (document.getElementById('filter').value == "1"){
-            location.href="/admin/orders?done=true";
+            location.href="/admin/orders?done=true&p=1"
         } else if (document.getElementById('filter').value == "0") {
-            location.href="/admin/orders?done=false"
+            location.href="/admin/orders?done=false&p=1"
         } else if (document.getElementById('filter').value == "2"){
-            location.href="/admin/orders"
+            location.href="/admin/orders?p=1"
         }
     }
 </script>
