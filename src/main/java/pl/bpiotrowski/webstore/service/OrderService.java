@@ -1,10 +1,8 @@
 package pl.bpiotrowski.webstore.service;
 
 import lombok.RequiredArgsConstructor;
-import org.hibernate.criterion.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.bpiotrowski.webstore.dto.OrderHeaderDto;
@@ -20,9 +18,10 @@ import pl.bpiotrowski.webstore.repository.OrderItemRepository;
 import pl.bpiotrowski.webstore.repository.UserRepository;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
 
 import static pl.bpiotrowski.webstore.statics.Constants.*;
 

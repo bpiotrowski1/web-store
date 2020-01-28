@@ -62,15 +62,15 @@
                     </div>
                     <div class="three wide column">
                         <div class="ui inverted link list">
-                            <div th:if="${footer.facebook != ''}" >
+                            <div th:if="${footer.facebook != '' and footer.facebook != null}" >
                                 <i class="facebook icon"></i>
                                 <a th:href="${'http://' + footer.facebook}" class="item">Facebook</a>
                             </div>
-                            <div th:if="${footer.instagram != ''}">
+                            <div th:if="${footer.instagram != '' and footer.instagram != null}">
                                 <i class="instagram icon"></i>
                                 <a th:href="${'http://' + footer.instagram}" class="item">Instagram</a>
                             </div>
-                            <div th:if="${footer.twitter != ''}">
+                            <div th:if="${footer.twitter != '' and footer.twitter != null}">
                                 <i class="twitter icon"></i>
                                 <a th:href="${'http://' + footer.twitter}" class="item">Twitter</a>
                             </div>
