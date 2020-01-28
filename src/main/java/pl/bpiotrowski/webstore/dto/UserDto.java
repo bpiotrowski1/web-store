@@ -1,10 +1,8 @@
 package pl.bpiotrowski.webstore.dto;
 
 import lombok.Data;
-import pl.bpiotrowski.webstore.entity.Address;
 import pl.bpiotrowski.webstore.entity.Role;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

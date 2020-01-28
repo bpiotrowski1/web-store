@@ -5,8 +5,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import pl.bpiotrowski.webstore.entity.Address;
 
+import java.util.Optional;
+
 public interface AddressRepository extends JpaRepository<Address, Long> {
 
-    @Query("select a from Address a where user_id=:id")
-    Address findByUserId(@Param("id") Long id);
+    Optional<Address> findByUserId(Long id);
+
 }

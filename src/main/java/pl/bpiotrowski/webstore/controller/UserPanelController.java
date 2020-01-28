@@ -39,7 +39,7 @@ public class UserPanelController {
     @PostMapping
     public String updateAddress(@Valid @ModelAttribute AddressDto addressDto, @AuthenticationPrincipal User user) {
         addressService.create(addressDto, user.getId());
-        return "redirect:/user-panel";
+        return "redirect:/user-panel?p=1";
     }
 
 }

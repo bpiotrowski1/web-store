@@ -4,12 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.bpiotrowski.webstore.dto.UserDto;
-import pl.bpiotrowski.webstore.entity.OrderHeader;
 import pl.bpiotrowski.webstore.entity.Role;
 import pl.bpiotrowski.webstore.entity.User;
 import pl.bpiotrowski.webstore.exception.EntityNotFoundException;
 import pl.bpiotrowski.webstore.exception.PasswordNotMatchException;
-import pl.bpiotrowski.webstore.repository.OrderHeaderRepository;
 import pl.bpiotrowski.webstore.repository.RoleRepository;
 import pl.bpiotrowski.webstore.repository.UserRepository;
 
@@ -48,4 +46,5 @@ public class UserService {
 
         return entity;
     }
+
 }
