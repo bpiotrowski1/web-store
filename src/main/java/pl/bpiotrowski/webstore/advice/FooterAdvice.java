@@ -1,4 +1,4 @@
-package pl.bpiotrowski.webstore.handler;
+package pl.bpiotrowski.webstore.advice;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.ControllerAdvice;

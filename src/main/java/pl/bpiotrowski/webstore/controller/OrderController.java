@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.bpiotrowski.webstore.entity.User;
+import pl.bpiotrowski.webstore.exception.QuantityBelowZeroException;
 import pl.bpiotrowski.webstore.service.AddressService;
 import pl.bpiotrowski.webstore.service.OrderService;
 
@@ -29,7 +30,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public String placeOrder(@AuthenticationPrincipal User user) {
+    public String placeOrder(@AuthenticationPrincipal User user) throws QuantityBelowZeroException {
         orderService.placeOrder(user.getId());
         return "redirect:/";
     }
