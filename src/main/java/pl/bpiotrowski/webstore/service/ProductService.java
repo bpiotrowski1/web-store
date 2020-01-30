@@ -1,6 +1,7 @@
 package pl.bpiotrowski.webstore.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.bpiotrowski.webstore.dto.ProductDto;
 import pl.bpiotrowski.webstore.entity.Product;
@@ -11,6 +12,7 @@ import pl.bpiotrowski.webstore.repository.UserRepository;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class ProductService {
 
     private final ProductRepository productRepository;
@@ -48,7 +50,11 @@ public class ProductService {
         return product.getQuantity();
     }
 
-    public void changeQuantity(Long id, Integer quantity) {
+    public void changeQuantity(Long id, Integer quantity, User user) {
+        if(quantity < 0) {
+            log.info("User: " + user.getId() + " try to change quantity to negative. Product: " + id);
+            return;
+        }
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Product " + id + " not found"));
         product.setQuantity(quantity);
