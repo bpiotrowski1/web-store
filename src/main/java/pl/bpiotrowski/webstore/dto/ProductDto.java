@@ -3,10 +3,7 @@ package pl.bpiotrowski.webstore.dto;
 import lombok.Data;
 import pl.bpiotrowski.webstore.entity.Category;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Data
 public class ProductDto {
@@ -18,6 +15,7 @@ public class ProductDto {
     private String title;
 
     @NotNull
+    @Size(min = 3)
     private String description;
 
     @NotBlank
@@ -27,11 +25,13 @@ public class ProductDto {
     @NotNull
     private Category category;
 
+    @NotNull
     @Positive
     private Double price;
     //    private Type type;
 
     @NotNull
+    @Positive
     private Integer quantity;
 
 //    @NotNull
