@@ -1,9 +1,9 @@
 package pl.bpiotrowski.webstore.handler;
 
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import pl.bpiotrowski.webstore.exception.QuantityBelowZeroException;
@@ -31,6 +31,13 @@ public class WebstoreExceptionHandler {
         }
         log.error(result.toString());
         return result;
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public String missingServletRequestParameterException(MissingServletRequestParameterException e) {
+        String errorMessage = "Required page number as parameter 'p'. " + e.getMessage();
+        log.error(errorMessage);
+        return errorMessage;
     }
 
 }
