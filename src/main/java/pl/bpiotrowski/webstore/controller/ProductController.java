@@ -4,7 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import pl.bpiotrowski.webstore.dto.ProductDto;
 import pl.bpiotrowski.webstore.entity.User;
 import pl.bpiotrowski.webstore.service.CategoryService;
@@ -26,8 +29,8 @@ public class ProductController {
     }
 
     @GetMapping("/admin/product/{id}/{quantity}")
-    public String changeQuantity(@PathVariable Long id, @PathVariable Integer quantity) {
-        productService.changeQuantity(id, quantity);
+    public String changeQuantity(@PathVariable Long id, @PathVariable Integer quantity, @AuthenticationPrincipal User user) {
+        productService.changeQuantity(id, quantity, user);
         return "admin/products";
     }
 
