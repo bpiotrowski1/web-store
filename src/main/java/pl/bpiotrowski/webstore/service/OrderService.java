@@ -104,7 +104,7 @@ public class OrderService {
         return mapOrderHeaderToDto(orderHeader);
     }
 
-    public void placeOrder(Long id) {
+    public void placeOrder(Long id) throws QuantityBelowZeroException {
         User purchaser = userRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException("User " + id + " not found"));
         Map<Product, Integer> order = cartService.getCart();

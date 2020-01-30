@@ -26,6 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .deleteCookies("JSESSIONID")
                     .permitAll()
             .and()
+                .exceptionHandling().accessDeniedPage("/forbidden")
+            .and()
                 .httpBasic();
     }
 

@@ -1,9 +1,13 @@
 package pl.bpiotrowski.webstore.exception;
 
-public class QuantityBelowZeroException extends RuntimeException{
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Quantity of product is below zero")
+public class QuantityBelowZeroException extends RuntimeException {
 
     public QuantityBelowZeroException(Long id) {
-        super("Product " + id + " quantity below zero");
+        super("Product ID: " + id + " - quantity is below zero");
     }
 
 }
