@@ -30,8 +30,8 @@ public class AddressService {
     }
 
     public AddressDto findAddress(Long id) {
-        Address entity = addressRepository.findByUserId(id)
-                .orElseThrow(() -> new EntityNotFoundException("Address " + id + " not found")); //(addressRepository.findByUserId(user.getId()) != null ? addressRepository.findByUserId(user.getId()) : new Address());
+        Address entity = (addressRepository.findByUserId(id).isPresent() ?
+                addressRepository.findByUserId(id).orElseThrow(() -> new EntityNotFoundException("Address for user " + id + " not found" )) : new Address());
         return mapAddressEntityToDto(entity);
     }
 
