@@ -18,9 +18,10 @@
                     <th th:text="#{webstore.product.price}"></th>
                     <th th:text="#{webstore.current.inventory}"></th>
                     <th th:text="#{webstore.product.edit}"></th>
+                    <th th:text="#{webstore.product.delete}"></th>
                 </thead>
                 <th:block th:each="product: ${productList}">
-                    <tr>
+                    <tr th:if="${product.active == true}">
                         <td th:text="${product.thumbnail}"></td>
                         <td th:text="${product.title}"></td>
                         <td th:text="${product.price}"></td>
@@ -31,6 +32,9 @@
                         </td>
                         <td>
                             <a th:href="@{'/admin/product/edit/' + ${product.id}}" th:text="#{webstore.product.edit}"></a>
+                        </td>
+                        <td>
+                            <a th:href="@{'/admin/product/delete/' + ${product.id}}" th:text="#{webstore.product.delete}"></a>
                         </td>
                     </tr>
                 </th:block>

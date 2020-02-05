@@ -48,6 +48,12 @@ public class ProductController {
         return "admin/editProduct";
     }
 
+    @GetMapping("/admin/product/delete/{id}")
+    public String deleteProduct(@PathVariable Long id) {
+        productService.delete(id);
+        return "redirect:/admin/products";
+    }
+
     @PostMapping("/admin/product/add")
     public String addProduct(@Valid @ModelAttribute ProductDto productDto, @AuthenticationPrincipal User user) {
         productService.create(productDto, user.getId());

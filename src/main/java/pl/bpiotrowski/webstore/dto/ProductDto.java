@@ -30,6 +30,9 @@ public class ProductDto {
     private Double price;
     //    private Type type;
 
+    //@NotNull
+    private Boolean active;
+
     @NotNull
     @Positive
     private Integer quantity;

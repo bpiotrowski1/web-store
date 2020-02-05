@@ -21,7 +21,7 @@
                     <th th:text="#{webstore.product.details}"></th>
                 </thead>
                 <th:block th:each="product: ${productList}">
-                    <tr>
+                    <tr th:if="${product.active == true}">
                         <td th:text="${product.thumbnail}"></td>
                         <td th:text="${product.title}"></td>
                         <td>

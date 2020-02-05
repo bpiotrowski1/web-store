@@ -56,6 +56,7 @@ public class ProductsService {
         dto.setCategory(product.getCategory());
         dto.setPrice(product.getPrice());
         dto.setQuantity(product.getQuantity());
+        dto.setActive(product.getActive());
 
         return dto;
     }
