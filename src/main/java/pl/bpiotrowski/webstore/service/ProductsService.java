@@ -15,9 +15,16 @@ public class ProductsService {
 
     private final ProductRepository productRepository;
 
-    public List<ProductDto> findAll() {
-        List<Product> products = productRepository.findAll();
+    public List<ProductDto> findAll(Boolean active) {
+        List<Product> products; // = productRepository.findAll();
         List<ProductDto> dto = new ArrayList<>();
+
+        if(active == null) {
+            products = productRepository.findAll();
+        } else {
+            products = productRepository.findAllByActive(active);
+        }
+
         for (Product entity : products) {
             dto.add(mapProductEntityToDto(entity));
         }

@@ -48,9 +48,15 @@ public class ProductController {
         return "admin/editProduct";
     }
 
-    @GetMapping("/admin/product/delete/{id}")
-    public String deleteProduct(@PathVariable Long id) {
-        productService.delete(id);
+    @GetMapping("/admin/product/hide/{id}")
+    public String hideProduct(@PathVariable Long id) {
+        productService.hide(id);
+        return "redirect:/admin/products";
+    }
+
+    @GetMapping("/admin/product/show/{id}")
+    public String showProduct(@PathVariable Long id) {
+        productService.show(id);
         return "redirect:/admin/products";
     }
 

@@ -45,10 +45,17 @@ public class ProductService {
         productRepository.save(updatedProduct);
     }
 
-    public void delete(Long id) {
+    public void hide(Long id) {
         Product toDelete = productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Product " + id + " not found"));
         toDelete.setActive(false);
+        productRepository.save(toDelete);
+    }
+
+    public void show(Long id) {
+        Product toDelete = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Product " + id + " not found"));
+        toDelete.setActive(true);
         productRepository.save(toDelete);
     }
 

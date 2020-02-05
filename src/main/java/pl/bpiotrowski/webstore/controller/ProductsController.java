@@ -17,7 +17,7 @@ public class ProductsController {
 
     @GetMapping("/products")
     public String getProducts(Model model) {
-        model.addAttribute("productList", productService.findAll());
+        model.addAttribute("productList", productService.findAll(true)); // ALWAYS give active products to users
         return "products";
     }
 
@@ -28,12 +28,12 @@ public class ProductsController {
     }
 
     @GetMapping("/admin/products")
-    public String getAdminProducts(Model model) {
-        model.addAttribute("productList", productService.findAll());
+    public String getAdminProducts(@RequestParam(name = "active", required = false) Boolean active, Model model) {
+        model.addAttribute("productList", productService.findAll(active));
         return "admin/products";
     }
 
-    @GetMapping("admin/products/search")
+    @GetMapping("/admin/products/search")
     public String searchAdminProducts(@RequestParam(name = "q") String query, Model model) {
         model.addAttribute("productList", productService.findAllByQuery(query));
         return "admin/products";
