@@ -6,6 +6,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import pl.bpiotrowski.webstore.exception.ProductHiddenException;
 import pl.bpiotrowski.webstore.exception.QuantityBelowZeroException;
 
 import java.util.HashMap;
@@ -18,6 +19,12 @@ public class WebstoreExceptionHandler {
 
     @ExceptionHandler(QuantityBelowZeroException.class)
     public String quantityBelowZeroException(QuantityBelowZeroException e) {
+        log.error(e.getMessage());
+        return e.getMessage();
+    }
+
+    @ExceptionHandler(ProductHiddenException.class)
+    public String productHiddenException(ProductHiddenException e) {
         log.error(e.getMessage());
         return e.getMessage();
     }

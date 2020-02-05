@@ -12,11 +12,13 @@ import pl.bpiotrowski.webstore.entity.OrderItem;
 import pl.bpiotrowski.webstore.entity.Product;
 import pl.bpiotrowski.webstore.entity.User;
 import pl.bpiotrowski.webstore.exception.EntityNotFoundException;
+import pl.bpiotrowski.webstore.exception.ProductHiddenException;
 import pl.bpiotrowski.webstore.exception.QuantityBelowZeroException;
 import pl.bpiotrowski.webstore.repository.OrderHeaderRepository;
 import pl.bpiotrowski.webstore.repository.OrderItemRepository;
 import pl.bpiotrowski.webstore.repository.UserRepository;
 
+import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -104,7 +106,8 @@ public class OrderService {
         return mapOrderHeaderToDto(orderHeader);
     }
 
-    public void placeOrder(Long id) throws QuantityBelowZeroException {
+    @Transactional
+    public void placeOrder(Long id) throws RuntimeException {
         User purchaser = userRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException("User " + id + " not found"));
         Map<Product, Integer> order = cartService.getCart();
@@ -123,8 +126,10 @@ public class OrderService {
             OrderItem orderItem = new OrderItem();
             orderItem.setQuantity(entry.getValue());
             orderItem.setItem(entry.getKey());
+            if(!productService.getOne(orderItem.getItem().getId()).getActive()) {
+                throw new ProductHiddenException(entry.getKey().getId());
+            }
             if(productService.getQuantity(orderItem.getItem().getId()) < orderItem.getQuantity()) {
-                orderHeaderRepository.delete(orderHeader);
                 throw new QuantityBelowZeroException(entry.getKey().getId());
             }
             orderItem.setOrderHeader(orderHeader);
