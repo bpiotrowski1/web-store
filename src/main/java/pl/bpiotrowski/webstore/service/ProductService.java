@@ -29,6 +29,7 @@ public class ProductService {
                 .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
         Product entity = mapDtoToEntity(dto);
         entity.setUser(user);
+        entity.setActive(true);
         productRepository.save(entity);
     }
 
@@ -42,6 +43,20 @@ public class ProductService {
         updatedProduct.setPrice(dto.getPrice());
         updatedProduct.setQuantity(dto.getQuantity());
         productRepository.save(updatedProduct);
+    }
+
+    public void hide(Long id) {
+        Product toDelete = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Product " + id + " not found"));
+        toDelete.setActive(false);
+        productRepository.save(toDelete);
+    }
+
+    public void show(Long id) {
+        Product toDelete = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Product " + id + " not found"));
+        toDelete.setActive(true);
+        productRepository.save(toDelete);
     }
 
     public Integer getQuantity(Long id) {
@@ -78,6 +93,7 @@ public class ProductService {
         dto.setCategory(entity.getCategory());
         dto.setPrice(entity.getPrice());
         dto.setQuantity(entity.getQuantity());
+        dto.setActive(entity.getActive());
 
         return dto;
     }
@@ -94,5 +110,4 @@ public class ProductService {
 
         return entity;
     }
-
 }

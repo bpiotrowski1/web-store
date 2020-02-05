@@ -48,6 +48,18 @@ public class ProductController {
         return "admin/editProduct";
     }
 
+    @GetMapping("/admin/product/hide/{id}")
+    public String hideProduct(@PathVariable Long id) {
+        productService.hide(id);
+        return "redirect:/admin/products";
+    }
+
+    @GetMapping("/admin/product/show/{id}")
+    public String showProduct(@PathVariable Long id) {
+        productService.show(id);
+        return "redirect:/admin/products";
+    }
+
     @PostMapping("/admin/product/add")
     public String addProduct(@Valid @ModelAttribute ProductDto productDto, @AuthenticationPrincipal User user) {
         productService.create(productDto, user.getId());
