@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{webstore.page.title}"></title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+    <div th:replace="fragments :: header"></div>
+    <div id="container">
+        <div class="stackable grid container">
+            <h2 class="ui header">Thumbnail</h2>
+            <form class="ui form" th:action="@{/admin/thumbnail}" method="post" enctype="multipart/form-data">
+                <input type="text" name="id" id="id" th:value="${param.id}" hidden>
+                <div class="field">
+                    <label for="thumbnail" th:text="#{webstore.product.thumbnail}"></label>
+                    <input type="file" name="thumbnail" id="thumbnail">
+                </div>
+                <button class="ui blue submit button" th:text="#{webstore.product.add}"></button>
+            </form>
+        </div>
+    </div>
+
+    <div th:replace="fragments :: footer"></div>
+</body>
+</html>

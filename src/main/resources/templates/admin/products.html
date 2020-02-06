@@ -23,15 +23,21 @@
             <table class="ui celled table">
                 <thead>
                     <th th:text="#{webstore.product.thumbnail}"></th>
+                    <th th:text="#{webstore.product.thumbnail}"></th>
                     <th th:text="#{webstore.product.title}"></th>
                     <th th:text="#{webstore.product.price}"></th>
                     <th th:text="#{webstore.current.inventory}"></th>
                     <th th:text="#{webstore.product.edit}"></th>
-                    <th th:text="#{webstore.product.unhide.show}"></th>
+                    <th th:text="#{webstore.product.hide.show}"></th>
                 </thead>
                 <th:block th:each="product: ${productList}">
                     <tr>
-                        <td th:text="${product.thumbnail}"></td>
+                        <td>
+                            <img th:src="@{/admin/thumbnail/{id}(id=${product.id})}" height="50" width="50"/>
+                        </td>
+                        <td>
+                            <a th:href="@{'/admin/thumbnail?id=' + ${product.id}}" th:text="#{webstore.product.thumbnail.change}"></a>
+                        </td>
                         <td th:text="${product.title}"></td>
                         <td th:text="${product.price}"></td>
                         <td>
@@ -46,7 +52,7 @@
                             <a th:href="@{'/admin/product/hide/' + ${product.id}}" th:text="#{webstore.product.hide}"></a>
                         </td>
                         <td th:if="${product.active == false}">
-                            <a th:href="@{'/admin/product/unhide/' + ${product.id}}" th:text="#{webstore.product.show}"></a>
+                            <a th:href="@{'/admin/product/show/' + ${product.id}}" th:text="#{webstore.product.show}"></a>
                         </td>
                     </tr>
                 </th:block>

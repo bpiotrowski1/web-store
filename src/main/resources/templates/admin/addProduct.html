@@ -21,10 +21,6 @@
                     <textarea style="resize:none" id="description" name="description"></textarea>
                 </div>
                 <div class="field">
-                    <label for="thumbnail" th:text="#{webstore.product.thumbnail}"></label>
-                    <input type="text" name="thumbnail" id="thumbnail">
-                </div>
-                <div class="field">
                     <label for="category" th:text="#{webstore.product.category}"></label>
                     <select name="category" id="category" class="ui search dropdown">
                         <th:block th:each="category : ${categoryList}">
