@@ -18,8 +18,6 @@ public class ProductDto {
     @Size(min = 3)
     private String description;
 
-    @NotBlank
-    @Size(max = 255)
     private String thumbnail;
 
     @NotNull
