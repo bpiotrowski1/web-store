@@ -14,15 +14,15 @@
         <h4 class="ui dividing header" th:text="#{webstore.order}"></h4>
         <table class="ui celled table">
             <thead>
-                <th>
-                    <img th:src="@{/thumbnail/{id}(id=${product.id})}" height="50" width="50"/><br/>
-                </th>
+                <th th:text="#{webstore.product.thumbnail}"></th>
                 <th th:text="#{webstore.product.title}"></th>
                 <th th:text="#{webstore.quantity}"></th>
             </thead>
             <th:block th:each="item: ${itemList}">
                 <tr>
-                    <td th:text="${item.item.thumbnail}"></td>
+                    <td>
+                        <img th:src="@{/thumbnail/{id}(id=${item.item.id})}" height="50" width="50"/>
+                    </td>
                     <td th:text="${item.item.title}"></td>
                     <td th:text="${item.quantity}"></td>
                 </tr>
