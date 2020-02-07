@@ -22,7 +22,9 @@
                 </thead>
                 <th:block th:each="product: ${productList}">
                     <tr th:if="${product.active == true}">
-                        <td th:text="${product.thumbnail}"></td>
+                        <td>
+                            <img th:src="@{/thumbnail/{id}(id=${product.id})}" height="50" width="50"/>
+                        </td>
                         <td th:text="${product.title}"></td>
                         <td>
                             <a th:href="${'/category/' + product.category.id}" th:text="${product.category.name}"></a>

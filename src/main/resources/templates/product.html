@@ -21,7 +21,9 @@
                     <th th:text="#{webstore.buy}"></th>
                 </thead>
                 <tr>
-                    <td th:text="${product.thumbnail}"></td>
+                    <td>
+                        <img th:src="@{/thumbnail/{id}(id=${product.id})}" height="50" width="50"/>
+                    </td>
                     <td th:text="${product.title}"></td>
                     <td th:text="${product.description}"></td>
                     <td th:text="${product.price}"></td>

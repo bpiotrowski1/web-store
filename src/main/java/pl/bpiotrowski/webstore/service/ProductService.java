@@ -83,6 +83,13 @@ public class ProductService {
         productRepository.save(product);
     }
 
+    void changeThumbnail(Long id, String thumbnailPath) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Product " + id + " not found"));
+        product.setThumbnail(thumbnailPath);
+        productRepository.save(product);
+    }
+
     private ProductDto mapEntityToDto(Product entity) {
         ProductDto dto = new ProductDto();
 
