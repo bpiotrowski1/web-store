@@ -1,6 +1,7 @@
 package pl.bpiotrowski.webstore.dto;
 
 import lombok.Data;
+import pl.bpiotrowski.webstore.entity.Address;
 import pl.bpiotrowski.webstore.entity.Role;
 
 import javax.validation.constraints.Email;
@@ -25,6 +26,8 @@ public class UserDto {
     @Email
     @Size(min = 6, max = 255)
     private String email;
+
+    private Address address;
 
     private Role role;
 

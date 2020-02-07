@@ -2,6 +2,7 @@ package pl.bpiotrowski.webstore.dto;
 
 import lombok.Builder;
 import lombok.Data;
+import pl.bpiotrowski.webstore.entity.Address;
 import pl.bpiotrowski.webstore.entity.User;
 
 import javax.validation.constraints.NotBlank;
@@ -26,5 +27,8 @@ public class OrderHeaderDto {
 
     @NotNull
     private boolean done;
+
+    @NotNull
+    private Address address;
 
 }

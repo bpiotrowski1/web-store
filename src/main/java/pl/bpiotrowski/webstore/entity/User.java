@@ -31,6 +31,10 @@ public class User implements UserDetails {
     @JoinColumn(name = "role_id")
     private Role role;
 
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return AuthorityUtils.createAuthorityList("ROLE_" + role.getTitle());
