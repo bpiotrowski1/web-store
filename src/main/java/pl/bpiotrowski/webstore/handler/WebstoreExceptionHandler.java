@@ -46,6 +46,12 @@ public class WebstoreExceptionHandler {
         return e.getMessage();
     }
 
+    @ExceptionHandler(NoAddressFoundException.class)
+    public String noAddressFoundException(NoAddressFoundException e) {
+        log.error(e.getMessage());
+        return e.getMessage();
+    }
+
     @ExceptionHandler(BindException.class)
     public Map<String, String> bindException(BindException e) {
         List<FieldError> fieldErrors = e.getFieldErrors();

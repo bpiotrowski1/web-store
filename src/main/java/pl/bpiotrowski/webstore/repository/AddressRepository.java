@@ -8,7 +8,4 @@ import pl.bpiotrowski.webstore.entity.Address;
 import java.util.Optional;
 
 public interface AddressRepository extends JpaRepository<Address, Long> {
-
-    Optional<Address> findByUserId(Long id);
-
 }

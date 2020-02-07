@@ -26,4 +26,8 @@ public class OrderHeader {
     @JoinColumn(name = "user_id")
     private User purchaser;
 
+    @OneToOne(optional = false)
+    @JoinColumn(name = "address_id")
+    private Address address;
+
 }

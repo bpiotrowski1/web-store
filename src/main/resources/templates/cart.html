@@ -22,7 +22,9 @@
                     </thead>
                     <th:block th:each="product: ${shoppingCart.keySet()}">
                         <tr>
-                            <td th:text="${product.thumbnail}"></td>
+                            <td>
+                                <img th:src="@{/thumbnail/{id}(id=${product.id})}" height="50" width="50"/><br/>
+                            </td>
                             <td th:text="${product.title}"></td>
                             <td>
                                 <div class="ui form">

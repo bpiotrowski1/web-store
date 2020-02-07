@@ -14,7 +14,9 @@
         <h4 class="ui dividing header" th:text="#{webstore.order}"></h4>
         <table class="ui celled table">
             <thead>
-                <th th:text="#{webstore.product.thumbnail}"></th>
+                <th>
+                    <img th:src="@{/thumbnail/{id}(id=${product.id})}" height="50" width="50"/><br/>
+                </th>
                 <th th:text="#{webstore.product.title}"></th>
                 <th th:text="#{webstore.quantity}"></th>
             </thead>

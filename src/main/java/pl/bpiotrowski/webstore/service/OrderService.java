@@ -12,6 +12,7 @@ import pl.bpiotrowski.webstore.entity.OrderItem;
 import pl.bpiotrowski.webstore.entity.Product;
 import pl.bpiotrowski.webstore.entity.User;
 import pl.bpiotrowski.webstore.exception.EntityNotFoundException;
+import pl.bpiotrowski.webstore.exception.NoAddressFoundException;
 import pl.bpiotrowski.webstore.exception.ProductHiddenException;
 import pl.bpiotrowski.webstore.exception.QuantityBelowZeroException;
 import pl.bpiotrowski.webstore.repository.OrderHeaderRepository;
@@ -115,11 +116,16 @@ public class OrderService {
         String number = (lastNumber + 1) + "/" + Calendar.getInstance().get(Calendar.YEAR);
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
 
+        if(purchaser.getAddress() == null) {
+            throw new NoAddressFoundException(purchaser.getId());
+        }
+
         OrderHeader orderHeader = new OrderHeader();
         orderHeader.setNumber(number);
         orderHeader.setPurchaser(purchaser);
         orderHeader.setDone(false);
         orderHeader.setDate(timeStamp);
+        orderHeader.setAddress(purchaser.getAddress());
         orderHeaderRepository.save(orderHeader);
 
         for(Map.Entry<Product, Integer> entry : order.entrySet()) {

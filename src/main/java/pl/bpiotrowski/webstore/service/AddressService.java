@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.bpiotrowski.webstore.dto.AddressDto;
 import pl.bpiotrowski.webstore.entity.Address;
+import pl.bpiotrowski.webstore.entity.OrderHeader;
 import pl.bpiotrowski.webstore.entity.User;
 import pl.bpiotrowski.webstore.exception.EntityNotFoundException;
 import pl.bpiotrowski.webstore.repository.AddressRepository;
+import pl.bpiotrowski.webstore.repository.OrderHeaderRepository;
 import pl.bpiotrowski.webstore.repository.UserRepository;
 
 @RequiredArgsConstructor
@@ -14,12 +16,14 @@ import pl.bpiotrowski.webstore.repository.UserRepository;
 public class AddressService {
 
     private final AddressRepository addressRepository;
+    private final OrderHeaderRepository orderHeaderRepository;
     private final UserRepository userRepository;
 
     public AddressDto findAddressByOrderId(Long id) {
         AddressDto dto = new AddressDto();
-        Address address = addressRepository.findByUserId(id)
+        OrderHeader orderHeader = orderHeaderRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Address " + id + " not found"));
+        Address address = orderHeader.getAddress();
 
         dto.setFirstName(address.getFirstName());
         dto.setLastName(address.getLastName());
@@ -29,21 +33,29 @@ public class AddressService {
         return dto;
     }
 
-    public AddressDto findAddress(Long id) {
-        Address entity = (addressRepository.findByUserId(id).isPresent() ?
-                addressRepository.findByUserId(id).orElseThrow(() -> new EntityNotFoundException("Address for user " + id + " not found" )) : new Address());
+    public AddressDto findAddressByUserId(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
+        Address entity = user.getAddress() != null ? user.getAddress() : new Address();
+
         return mapAddressEntityToDto(entity);
     }
 
     public void create(AddressDto dto, Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
-        Address actual = addressRepository.findByUserId(id)
-                .orElseThrow(() -> new EntityNotFoundException("Address " + id + " not found"));
         Address entity = mapAddressDtoToEntity(dto);
-        entity.setUser(user);
-        addressRepository.delete(actual);
+
+        if(user.getAddress() != null) {
+            Address actual = user.getAddress();
+            user.setAddress(null);
+            if(orderHeaderRepository.findCountByAddressId(actual.getId()) == 0) {
+                addressRepository.delete(actual);
+            }
+        }
         addressRepository.save(entity);
+        user.setAddress(entity);
+        userRepository.flush();
     }
 
     private AddressDto mapAddressEntityToDto(Address address) {
