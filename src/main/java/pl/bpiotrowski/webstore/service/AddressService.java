@@ -49,7 +49,9 @@ public class AddressService {
         if(user.getAddress() != null) {
             Address actual = user.getAddress();
             user.setAddress(null);
-            addressRepository.delete(actual);
+            if(orderHeaderRepository.findCountByAddressId(actual.getId()) == 0) {
+                addressRepository.delete(actual);
+            }
         }
         addressRepository.save(entity);
         user.setAddress(entity);

@@ -120,6 +120,7 @@ public class OrderService {
         orderHeader.setPurchaser(purchaser);
         orderHeader.setDone(false);
         orderHeader.setDate(timeStamp);
+        orderHeader.setAddress(purchaser.getAddress());
         orderHeaderRepository.save(orderHeader);
 
         for(Map.Entry<Product, Integer> entry : order.entrySet()) {
