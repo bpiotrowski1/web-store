@@ -23,7 +23,7 @@
                     <th:block th:each="product: ${shoppingCart.keySet()}">
                         <tr>
                             <td>
-                                <img th:src="@{/thumbnail/{id}(id=${product.id})}" height="50" width="50"/><br/>
+                                <img th:src="@{/thumbnail/{id}(id=${product.id})}" height="50" width="50"/>
                             </td>
                             <td th:text="${product.title}"></td>
                             <td>
