@@ -6,8 +6,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import pl.bpiotrowski.webstore.exception.ProductHiddenException;
-import pl.bpiotrowski.webstore.exception.QuantityBelowZeroException;
+import pl.bpiotrowski.webstore.exception.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +24,24 @@ public class WebstoreExceptionHandler {
 
     @ExceptionHandler(ProductHiddenException.class)
     public String productHiddenException(ProductHiddenException e) {
+        log.error(e.getMessage());
+        return e.getMessage();
+    }
+
+    @ExceptionHandler(BadFileExtensionException.class)
+    public String badFileExtensionException(BadFileExtensionException e) {
+        log.error(e.getMessage());
+        return e.getMessage();
+    }
+
+    @ExceptionHandler(FileEmptyException.class)
+    public String fileEmptyException(FileEmptyException e) {
+        log.error(e.getMessage());
+        return e.getMessage();
+    }
+
+    @ExceptionHandler(FileTooLargeException.class)
+    public String fileTooLargeException(FileTooLargeException e) {
         log.error(e.getMessage());
         return e.getMessage();
     }
