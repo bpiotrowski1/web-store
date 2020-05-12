@@ -4,14 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import pl.bpiotrowski.webstore.dto.AddressDto;
 import pl.bpiotrowski.webstore.entity.User;
 import pl.bpiotrowski.webstore.exception.QuantityBelowZeroException;
 import pl.bpiotrowski.webstore.service.AddressService;
 import pl.bpiotrowski.webstore.service.OrderService;
+
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @Controller
@@ -30,8 +30,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public String placeOrder(@AuthenticationPrincipal User user) throws QuantityBelowZeroException {
-        orderService.placeOrder(user.getId());
+    public String placeOrder(@Valid @ModelAttribute AddressDto addressDto, @AuthenticationPrincipal User user) throws QuantityBelowZeroException {
+        orderService.placeOrder(user.getId(), addressDto);
         return "redirect:/";
     }
 

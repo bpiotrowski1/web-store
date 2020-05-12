@@ -41,21 +41,10 @@ public class AddressService {
         return mapAddressEntityToDto(entity);
     }
 
-    public void create(AddressDto dto, Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
+    public Address create(AddressDto dto) {
         Address entity = mapAddressDtoToEntity(dto);
-
-        if(user.getAddress() != null) {
-            Address actual = user.getAddress();
-            user.setAddress(null);
-            if(orderHeaderRepository.findCountByAddressId(actual.getId()) == 0) {
-                addressRepository.delete(actual);
-            }
-        }
         addressRepository.save(entity);
-        user.setAddress(entity);
-        userRepository.flush();
+        return entity;
     }
 
     private AddressDto mapAddressEntityToDto(Address address) {
