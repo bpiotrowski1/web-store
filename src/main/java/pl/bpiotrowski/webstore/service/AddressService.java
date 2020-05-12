@@ -36,7 +36,7 @@ public class AddressService {
     public AddressDto findAddressByUserId(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
-        Address entity = user.getAddress() != null ? user.getAddress() : new Address();
+        Address entity = user.getLastAddress() != null ? user.getLastAddress() : new Address();
 
         return mapAddressEntityToDto(entity);
     }

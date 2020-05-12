@@ -116,6 +116,7 @@ public class OrderService {
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
         Address address = addressService.create(addressDto);
 
+        purchaser.setLastAddress(address);
         OrderHeader orderHeader = new OrderHeader();
         orderHeader.setNumber(number);
         orderHeader.setPurchaser(purchaser);

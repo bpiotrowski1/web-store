@@ -32,8 +32,8 @@ public class User implements UserDetails {
     private Role role;
 
     @OneToOne
-    @JoinColumn(name = "address_id")
-    private Address address;
+    @JoinColumn(name = "last_address")
+    private Address lastAddress;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
