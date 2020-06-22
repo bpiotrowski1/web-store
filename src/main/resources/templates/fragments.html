@@ -24,6 +24,7 @@
                             <a class="item" href="/admin/orders?p=1" th:text="#{webstore.orders}"></a>
                             <a class="item" href="/admin/products" th:text="#{webstore.products}"></a>
                             <a class="item" href="/admin/footer" th:text="#{webstore.footer}"></a>
+                            <a class="item" href="/admin/about" th:text="#{webstore.edit.about}"></a>
                         </div>
                     </div>
                     <div sec:authorize="hasRole('ROLE_ADMIN')" class="right item">
@@ -50,7 +51,7 @@
                     <div class="three wide column">
                         <div class="ui inverted link list">
                             <div>
-                                <a href="#" class="item" th:text="#{webstore.about}"></a>
+                                <a th:href="@{/about}" class="item" th:text="#{webstore.about}"></a>
                             </div>
                             <div>
                                 <a href="#" class="item" th:text="#{webstore.contact}"></a>
