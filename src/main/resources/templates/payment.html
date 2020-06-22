@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{webstore.page.title}"></title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div th:replace="fragments :: header"></div>
+<div id="container">
+    <div class="stackable grid container">
+        <form class="ui form" th:action="@{/order}" method="post" th:object="${addressForm}">
+            <h4 class="ui dividing header" th:text="#{webstore.shipping.information}"></h4>
+            <div class="field">
+                <label th:text="#{webstore.personal.data}"></label>
+                <div class="two fields">
+                    <div class="field">
+                        <input type="text" name="firstName" id="firstName" th:placeholder="#{webstore.user.first.name}" th:value="${addressForm.firstName}"/>
+                    </div>
+                    <div class="field">
+                        <input type="text" name="lastName" id="lastName" th:placeholder="#{webstore.user.last.name}" th:value="${addressForm.lastName}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label th:text="#{webstore.user.billing.address}"></label>
+                <div class="fields">
+                    <div class="twelve wide field">
+                        <input type="text" name="street" id="street" th:placeholder="#{webstore.user.billing.street}" th:value="${addressForm.street}"/>
+                    </div>
+                    <div class="four wide field">
+                        <input type="text" name="houseNumber" id="houseNumber" th:placeholder="#{webstore.user.billing.house}" th:value="${addressForm.houseNumber}"/>
+                    </div>
+                </div>
+            </div>
+            <button class="ui blue submit button" th:text="#{webstore.order}"></button>
+        </form>
+    </div>
+</div>
+
+<div th:replace="fragments :: footer"></div>
+</body>
+</html>

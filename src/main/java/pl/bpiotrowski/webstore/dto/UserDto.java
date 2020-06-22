@@ -27,7 +27,7 @@ public class UserDto {
     @Size(min = 6, max = 255)
     private String email;
 
-    private Address address;
+    private Address lastAddress;
 
     private Role role;
 

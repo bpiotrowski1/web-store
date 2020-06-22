@@ -5,12 +5,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import pl.bpiotrowski.webstore.dto.AddressDto;
 import pl.bpiotrowski.webstore.dto.OrderHeaderDto;
 import pl.bpiotrowski.webstore.dto.OrderItemDto;
-import pl.bpiotrowski.webstore.entity.OrderHeader;
-import pl.bpiotrowski.webstore.entity.OrderItem;
-import pl.bpiotrowski.webstore.entity.Product;
-import pl.bpiotrowski.webstore.entity.User;
+import pl.bpiotrowski.webstore.entity.*;
 import pl.bpiotrowski.webstore.exception.EntityNotFoundException;
 import pl.bpiotrowski.webstore.exception.NoAddressFoundException;
 import pl.bpiotrowski.webstore.exception.ProductHiddenException;
@@ -37,6 +35,7 @@ public class OrderService {
     private final UserRepository userRepository;
     private final ProductService productService;
     private final CartService cartService;
+    private final AddressService addressService;
 
     public List<OrderHeaderDto> findAll(int p, String done) {
         Page<OrderHeader> page;
@@ -108,24 +107,22 @@ public class OrderService {
     }
 
     @Transactional
-    public void placeOrder(Long id) throws RuntimeException {
+    public void placeOrder(Long id, AddressDto addressDto) throws RuntimeException {
         User purchaser = userRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException("User " + id + " not found"));
         Map<Product, Integer> order = cartService.getCart();
         long lastNumber = (orderHeaderRepository.findMaxId() == null ? 0 : orderHeaderRepository.findMaxId());
         String number = (lastNumber + 1) + "/" + Calendar.getInstance().get(Calendar.YEAR);
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        Address address = addressService.create(addressDto);
 
-        if(purchaser.getAddress() == null) {
-            throw new NoAddressFoundException(purchaser.getId());
-        }
-
+        purchaser.setLastAddress(address);
         OrderHeader orderHeader = new OrderHeader();
         orderHeader.setNumber(number);
         orderHeader.setPurchaser(purchaser);
         orderHeader.setDone(false);
         orderHeader.setDate(timeStamp);
-        orderHeader.setAddress(purchaser.getAddress());
+        orderHeader.setAddress(address);
         orderHeaderRepository.save(orderHeader);
 
         for(Map.Entry<Product, Integer> entry : order.entrySet()) {

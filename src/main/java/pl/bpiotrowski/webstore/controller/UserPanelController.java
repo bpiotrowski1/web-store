@@ -19,7 +19,6 @@ import javax.validation.Valid;
 public class UserPanelController {
 
     private final AddressService addressService;
-    private final UserService userService;
     private final OrderService orderService;
 
     @GetMapping
@@ -28,18 +27,6 @@ public class UserPanelController {
         model.addAttribute("ordersList", orderService.findAllByUserId(p - 1, user.getId()));
         model.addAttribute("pageNumbers", orderService.getUserPanelTotalPages(user.getId()));
         return "userPanel";
-    }
-
-    @GetMapping("/change/email")
-    public String updateEmail(@RequestParam(name = "email") String email, @RequestParam(name="repeatEmail") String repeatEmail, @AuthenticationPrincipal User user) {
-        userService.changeEmail(email, repeatEmail, user.getId());
-        return "redirect:/user-panel";
-    }
-
-    @PostMapping
-    public String updateAddress(@Valid @ModelAttribute AddressDto addressDto, @AuthenticationPrincipal User user) {
-        addressService.create(addressDto, user.getId());
-        return "redirect:/user-panel?p=1";
     }
 
 }
