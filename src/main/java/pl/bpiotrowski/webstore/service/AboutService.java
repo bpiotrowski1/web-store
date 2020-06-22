@@ -14,22 +14,18 @@ public class AboutService {
     private final AboutRepository aboutRepository;
 
     public AboutDto findAbout() {
-        return mapEntityToDto(aboutRepository.findById(1L)
-                .orElseThrow(() -> new EntityNotFoundException("About " + 1 + " not found")));
+        About about = isInitialized();
+        return mapEntityToDto(about);
     }
 
     public void save(AboutDto aboutDto) {
-        About about = mapDtoToEntity(aboutDto);
+        About about = isInitialized();
+        about.setContent(aboutDto.getContent());
         aboutRepository.save(about);
     }
 
-    private About mapDtoToEntity(AboutDto aboutDto) {
-        About about = new About();
-
-        about.setId(aboutDto.getId());
-        about.setContent(aboutDto.getContent());
-
-        return about;
+    private About isInitialized() {
+        return aboutRepository.findCount() > 0 ? aboutRepository.findById(1L).orElseThrow(() -> new EntityNotFoundException("About " + 1 + " not found")) : new About();
     }
 
     private AboutDto mapEntityToDto(About about) {

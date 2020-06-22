@@ -13,6 +13,7 @@ public class About {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Lob
     private String content;
 
 }

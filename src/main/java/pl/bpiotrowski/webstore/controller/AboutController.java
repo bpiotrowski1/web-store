@@ -25,7 +25,7 @@ public class AboutController {
 
     @GetMapping("/admin/about")
     public String editAbout(Model model) {
-        model.addAttribute("aboutForm", new AboutDto());
+        model.addAttribute("aboutForm", aboutService.findAbout());
         return "admin/editAbout";
     }
 

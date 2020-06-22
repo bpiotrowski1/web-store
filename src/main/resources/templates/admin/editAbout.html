@@ -14,7 +14,7 @@
             <form class="ui form" th:action="@{/admin/about}" method="post" th:object="${aboutForm}">
                 <div class="field">
                     <label for="content" th:text="#{webstore.content}"></label>
-                    <textarea style="resize:none" id="content" name="content"></textarea>
+                    <textarea style="resize:none" id="content" name="content" th:text="${aboutForm.content}"></textarea>
                 </div>
                 <button class="ui blue submit button" th:text="#{webstore.update}"></button>
             </form>
