@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pl.bpiotrowski.webstore.service.ProductService;
 import pl.bpiotrowski.webstore.service.ThumbnailService;
 
 @RequiredArgsConstructor
@@ -13,9 +15,11 @@ import pl.bpiotrowski.webstore.service.ThumbnailService;
 public class ThumbnailController {
 
     private final ThumbnailService thumbnailService;
+    private final ProductService productService;
 
     @GetMapping("/admin/thumbnail")
-    public String getFrom() {
+    public String getForm(@RequestParam("id") Long id, Model model) {
+        model.addAttribute("title", productService.getOne(id).getTitle());
         return "admin/thumbnail";
     }
 

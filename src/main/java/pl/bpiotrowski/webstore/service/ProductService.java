@@ -24,13 +24,14 @@ public class ProductService {
         return mapEntityToDto(product);
     }
 
-    public void create(ProductDto dto, Long id) {
+    public Long create(ProductDto dto, Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
         Product entity = mapDtoToEntity(dto);
         entity.setUser(user);
         entity.setActive(true);
         productRepository.save(entity);
+        return entity.getId();
     }
 
     public void update(ProductDto dto) {

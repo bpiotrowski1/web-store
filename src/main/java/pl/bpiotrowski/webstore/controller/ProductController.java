@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.bpiotrowski.webstore.dto.ProductDto;
+import pl.bpiotrowski.webstore.entity.Product;
 import pl.bpiotrowski.webstore.entity.User;
 import pl.bpiotrowski.webstore.service.CategoryService;
 import pl.bpiotrowski.webstore.service.ProductService;
@@ -62,8 +63,8 @@ public class ProductController {
 
     @PostMapping("/admin/product/add")
     public String addProduct(@Valid @ModelAttribute ProductDto productDto, @AuthenticationPrincipal User user) {
-        productService.create(productDto, user.getId());
-        return "redirect:/admin/products";
+        Long id = productService.create(productDto, user.getId());
+        return "redirect:/admin/thumbnail?id=" + id;
     }
 
     @PostMapping("/admin/product/edit/{id}")

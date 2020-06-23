@@ -10,11 +10,12 @@
     <div th:replace="fragments :: header"></div>
     <div id="container">
         <div class="stackable grid container">
-            <h2 class="ui header">Thumbnail</h2>
+            <h2 class="ui header" th:text="#{webstore.product.thumbnail}"></h2>
             <form class="ui form" th:action="@{/admin/thumbnail}" method="post" enctype="multipart/form-data">
                 <input type="text" name="id" id="id" th:value="${param.id}" hidden>
                 <div class="field">
-                    <label for="thumbnail" th:text="#{webstore.product.thumbnail}"></label>
+                    <label for="thumbnail" th:text="#{webstore.product.thumbnail.change.for}"></label>
+                    <i th:text="${title}"></i><br/><br/>
                     <input type="file" name="thumbnail" id="thumbnail">
                 </div>
                 <button class="ui blue submit button" th:text="#{webstore.product.add}"></button>
