@@ -10,8 +10,8 @@
     <div th:replace="fragments :: header"></div>
     <div id="container">
         <div class="stackable grid container">
-            <h2 class="ui header" th:text="#{webstore.about}"></h2>
-            <p th:text="${about.content}">
+            <h2 class="ui header" th:text="#{webstore.about}"></h2><br/>
+            <p th:utext="${about.content}">
             </p>
         </div>
     </div>

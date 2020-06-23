@@ -13,7 +13,7 @@
             <h2 class="ui header" th:text="#{webstore.edit.about}"></h2>
             <form class="ui form" th:action="@{/admin/about}" method="post" th:object="${aboutForm}">
                 <div class="field">
-                    <label for="content" th:text="#{webstore.content}"></label>
+                    <label for="content" th:text="#{webstore.use.html}"></label>
                     <textarea style="resize:none" id="content" name="content" th:text="${aboutForm.content}"></textarea>
                 </div>
                 <button class="ui blue submit button" th:text="#{webstore.update}"></button>
