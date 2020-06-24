@@ -32,7 +32,7 @@ public class OrderController {
     @PostMapping
     public String placeOrder(@Valid @ModelAttribute AddressDto addressDto, @AuthenticationPrincipal User user) throws QuantityBelowZeroException {
         orderService.placeOrder(user.getId(), addressDto);
-        return "redirect:/?success";
+        return "redirect:/?order_success";
     }
 
 }

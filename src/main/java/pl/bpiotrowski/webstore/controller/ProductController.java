@@ -65,7 +65,7 @@ public class ProductController {
     @PostMapping("/admin/product/add")
     public String addProduct(@Valid @ModelAttribute ProductDto productDto, @AuthenticationPrincipal User user) {
         Long id = productService.create(productDto, user.getId());
-        return "redirect:/admin/thumbnail?id=" + id;
+        return "redirect:/admin/thumbnail?id=" + id + "&product_added";
     }
 
     @PostMapping("/admin/product/edit/{id}")

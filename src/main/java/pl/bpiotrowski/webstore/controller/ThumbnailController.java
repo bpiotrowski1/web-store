@@ -32,7 +32,7 @@ public class ThumbnailController {
     @PostMapping("/admin/thumbnail")
     public String uploadThumbnail(@RequestParam("id") Long id, @RequestParam("thumbnail") MultipartFile thumbnail) {
         thumbnailService.save(id, thumbnail);
-        return "redirect:/admin/products";
+        return "redirect:/admin/products?thumbnail_added";
     }
 
 }
