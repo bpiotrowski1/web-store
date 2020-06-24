@@ -33,7 +33,7 @@ public class CategoryController {
     @PostMapping("admin/category")
     public String createCategory(@Valid @ModelAttribute CategoryDto categoryForm) {
         categoryService.create(categoryForm);
-        return "redirect:/admin/category";
+        return "redirect:/admin/category?category_added";
     }
 
 }
