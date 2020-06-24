@@ -12,11 +12,20 @@
     <div th:replace="fragments :: header"></div>
     <div id="container">
         <div class="stackable grid container">
-            <h2 class="ui header" th:text="#{webstore.products}"></h2>
-            <hr/>
-            <p>
+            <h3 class="ui header" style="text-align: center" th:text="#{webstore.most.viewed}"></h3>
 
-            </p>
+            <div class="ui three column grid">
+                <div class="column" th:block th:each="product: ${topViewedProducts}">
+                    <div class="ui segment" th:if="${product.active == true}">
+                        <a th:href="@{'/product/' + ${product.id}}">
+                            <h4 style="text-align: center" th:text="${product.title}"></h4>
+                            <img th:src="@{/thumbnail/{id}(id=${product.id})}" height="200" width="300"/><br/>
+                            <i th:text="#{webstore.available.in.stock}"></i>: <span th:text="${product.quantity}"></span><br/>
+                            <i th:text="#{webstore.product.price}"></i>: <span th:text="${product.price}"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

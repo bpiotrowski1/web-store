@@ -53,6 +53,17 @@ public class ProductsService {
         return result;
     }
 
+    public List<ProductDto> findTopByViews() {
+        List<Product> products = productRepository.findTop3Viewed();
+        List<ProductDto> result = new ArrayList<>();
+
+        for(Product product : products) {
+            result.add(mapProductEntityToDto(product));
+        }
+
+        return result;
+    }
+
     private ProductDto mapProductEntityToDto(Product product) {
         ProductDto dto = new ProductDto();
 
