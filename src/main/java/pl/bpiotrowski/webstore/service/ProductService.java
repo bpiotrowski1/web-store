@@ -29,7 +29,8 @@ public class ProductService {
                 .orElseThrow(() -> new EntityNotFoundException("User " + id + " not found"));
         Product entity = mapDtoToEntity(dto);
         entity.setUser(user);
-        entity.setActive(true);
+        entity.setActive(true);     //set show/hide on products page - true:show; false:hide;
+        entity.setViews(0L);    //start from 0 views
         productRepository.save(entity);
         return entity.getId();
     }
@@ -102,6 +103,7 @@ public class ProductService {
         dto.setPrice(entity.getPrice());
         dto.setQuantity(entity.getQuantity());
         dto.setActive(entity.getActive());
+        dto.setViews(entity.getViews());
 
         return dto;
     }
@@ -115,6 +117,8 @@ public class ProductService {
         entity.setCategory(dto.getCategory());
         entity.setPrice(dto.getPrice());
         entity.setQuantity(dto.getQuantity());
+        entity.setActive(dto.getActive());
+        entity.setViews(dto.getViews());
 
         return entity;
     }

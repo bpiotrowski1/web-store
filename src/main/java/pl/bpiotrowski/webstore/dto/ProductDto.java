@@ -28,8 +28,9 @@ public class ProductDto {
     private Double price;
     //    private Type type;
 
-    //@NotNull
     private Boolean active;
+
+    private Long views;
 
     @NotNull
     @Positive
