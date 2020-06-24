@@ -25,6 +25,7 @@ public class ProductController {
 
     @GetMapping("/product/{id}")
     public String getOne(@PathVariable Long id, Model model) {
+        productService.increaseViews(id);
         model.addAttribute("product", productService.getOne(id));
         return "product";
     }

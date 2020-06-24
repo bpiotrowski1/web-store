@@ -78,6 +78,13 @@ public class ProductService {
         productRepository.save(product);
     }
 
+    public void increaseViews(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Product " + id + " not found"));
+        product.setViews(product.getViews() + 1);
+        productRepository.flush();
+    }
+
     void reduceQuantity(Long id, Integer quantity) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Product " + id + " not found"));
