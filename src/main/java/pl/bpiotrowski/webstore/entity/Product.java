@@ -31,6 +31,9 @@ public class Product {
     @Column(nullable = false)
     private Boolean active;
 
+    @Column(nullable = false)
+    private Long views;
+
 //    Enumerated
 //    private Type type;
 
