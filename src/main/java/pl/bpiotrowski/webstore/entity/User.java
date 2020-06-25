@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Data
@@ -34,6 +35,9 @@ public class User implements UserDetails {
     @OneToOne
     @JoinColumn(name = "last_address")
     private Address lastAddress;
+
+    @NotNull
+    private boolean active;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

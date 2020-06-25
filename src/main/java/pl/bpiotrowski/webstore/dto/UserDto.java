@@ -31,4 +31,6 @@ public class UserDto {
 
     private Role role;
 
+    private boolean active;
+
 }
