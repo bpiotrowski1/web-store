@@ -52,6 +52,18 @@ public class WebstoreExceptionHandler {
         return e.getMessage();
     }
 
+    @ExceptionHandler(PasswordNotMatchException.class)
+    public String passwordNotMatchException(PasswordNotMatchException e) {
+        log.error(e.getMessage());
+        return e.getMessage();
+    }
+
+    @ExceptionHandler(EmailAlreadyRegisteredException.class)
+    public String emailAlreadyRegisteredException(EmailAlreadyRegisteredException e) {
+        log.error(e.getMessage());
+        return e.getMessage();
+    }
+
     @ExceptionHandler(BindException.class)
     public Map<String, String> bindException(BindException e) {
         List<FieldError> fieldErrors = e.getFieldErrors();

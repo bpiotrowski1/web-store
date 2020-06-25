@@ -7,6 +7,7 @@ import pl.bpiotrowski.webstore.dto.UserDto;
 import pl.bpiotrowski.webstore.entity.ConfirmationToken;
 import pl.bpiotrowski.webstore.entity.Role;
 import pl.bpiotrowski.webstore.entity.User;
+import pl.bpiotrowski.webstore.exception.EmailAlreadyRegisteredException;
 import pl.bpiotrowski.webstore.exception.EntityNotFoundException;
 import pl.bpiotrowski.webstore.exception.PasswordNotMatchException;
 import pl.bpiotrowski.webstore.repository.RoleRepository;
@@ -27,6 +28,9 @@ public class UserService {
     public void create(UserDto userForm) {
         if(!userForm.getPassword().equals(userForm.getRepeatPassword())) {
             throw new PasswordNotMatchException();
+        }
+        if(userRepository.findByEmail(userForm.getEmail()).isPresent()) {
+            throw new EmailAlreadyRegisteredException();
         }
         User user = mapUserDtoToUserEntity(userForm);
         userRepository.save(user);
