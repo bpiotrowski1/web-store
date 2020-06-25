@@ -38,7 +38,7 @@ public class UserController {
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute UserDto userForm) {
         userService.create(userForm);
-        return "redirect:/login?register_success";
+        return "redirect:/login?email=" + userForm.getEmail() + "&register_success";
     }
 
 }
