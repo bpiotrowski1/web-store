@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.bpiotrowski.webstore.dto.UserDto;
 import pl.bpiotrowski.webstore.service.UserService;
 
@@ -26,6 +27,12 @@ public class UserController {
     public String register(Model model) {
         model.addAttribute("userForm", new UserDto());
         return "register";
+    }
+
+    @GetMapping("/confirm")
+    public String confirmUser(@RequestParam(name = "token") String token) {
+        userService.activateUser(token);
+        return "redirect:/login?confirmed";
     }
 
     @PostMapping("/register")
